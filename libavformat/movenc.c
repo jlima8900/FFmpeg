@@ -7742,7 +7742,9 @@ static void enable_tracks(AVFormatContext *s)
         if (first[st->codecpar->codec_type] < 0)
             first[st->codecpar->codec_type] = i;
         if (st->disposition & AV_DISPOSITION_DEFAULT) {
-            mov->tracks[i].flags |= MOV_TRACK_ENABLED;
+            /* Only enable the first track of each type with default flag */
+            if (!enabled[st->codecpar->codec_type])
+                mov->tracks[i].flags |= MOV_TRACK_ENABLED;
             enabled[st->codecpar->codec_type]++;
         }
     }
