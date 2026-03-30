@@ -67,6 +67,10 @@ struct gdigrab {
     HWND       region_hwnd; /**< Handle of the region border window */
 
     int cursor_error_printed;
+
+    HCURSOR    last_cursor;  /**< Last system cursor handle for caching */
+    HICON      cached_icon;  /**< Cached cursor icon copy */
+    ICONINFO   cached_info;  /**< Cached icon info (contains bitmaps) */
 };
 
 #define WIN32_API_ERROR(str)                                            \
@@ -480,8 +484,7 @@ static void paint_mouse_pointer(AVFormatContext *s1, struct gdigrab *gdigrab)
     ci.cbSize = sizeof(ci);
 
     if (GetCursorInfo(&ci)) {
-        HCURSOR icon = CopyCursor(ci.hCursor);
-        ICONINFO info;
+        ICONINFO *info = &gdigrab->cached_info;
         POINT pos;
         RECT clip_rect = gdigrab->clip_rect;
         HWND hwnd = gdigrab->hwnd;
@@ -489,42 +492,62 @@ static void paint_mouse_pointer(AVFormatContext *s1, struct gdigrab *gdigrab)
         int vertres = GetDeviceCaps(gdigrab->source_hdc, VERTRES);
         int desktophorzres = GetDeviceCaps(gdigrab->source_hdc, DESKTOPHORZRES);
         int desktopvertres = GetDeviceCaps(gdigrab->source_hdc, DESKTOPVERTRES);
-        info.hbmMask = NULL;
-        info.hbmColor = NULL;
 
         if (ci.flags != CURSOR_SHOWING)
             return;
 
-        if (!icon) {
-            /* Use the standard arrow cursor as a fallback.
-             * You'll probably only hit this in Wine, which can't fetch
-             * the current system cursor. */
-            icon = CopyCursor(LoadCursor(NULL, IDC_ARROW));
+        /* Cache cursor to avoid flickering from repeated CopyCursor/GetIconInfo */
+        if (ci.hCursor != gdigrab->last_cursor) {
+            /* Free old cached resources */
+            if (gdigrab->cached_info.hbmMask)
+                DeleteObject(gdigrab->cached_info.hbmMask);
+            if (gdigrab->cached_info.hbmColor)
+                DeleteObject(gdigrab->cached_info.hbmColor);
+            if (gdigrab->cached_icon)
+                DestroyCursor(gdigrab->cached_icon);
+
+            gdigrab->cached_info.hbmMask = NULL;
+            gdigrab->cached_info.hbmColor = NULL;
+            gdigrab->cached_icon = CopyCursor(ci.hCursor);
+            gdigrab->last_cursor = ci.hCursor;
+
+            if (!gdigrab->cached_icon) {
+                /* Use the standard arrow cursor as a fallback.
+                 * You'll probably only hit this in Wine, which can't fetch
+                 * the current system cursor. */
+                gdigrab->cached_icon = CopyCursor(LoadCursor(NULL, IDC_ARROW));
+            }
+
+            if (gdigrab->cached_icon && !GetIconInfo(gdigrab->cached_icon, info)) {
+                CURSOR_ERROR("Could not get icon info");
+                DestroyCursor(gdigrab->cached_icon);
+                gdigrab->cached_icon = NULL;
+                gdigrab->last_cursor = NULL;
+                return;
+            }
         }
 
-        if (!GetIconInfo(icon, &info)) {
-            CURSOR_ERROR("Could not get icon info");
-            goto icon_error;
-        }
+        if (!gdigrab->cached_icon)
+            return;
 
         if (hwnd) {
             RECT rect;
 
             if (GetWindowRect(hwnd, &rect)) {
-                pos.x = ci.ptScreenPos.x - clip_rect.left - info.xHotspot - rect.left;
-                pos.y = ci.ptScreenPos.y - clip_rect.top - info.yHotspot - rect.top;
+                pos.x = ci.ptScreenPos.x - clip_rect.left - info->xHotspot - rect.left;
+                pos.y = ci.ptScreenPos.y - clip_rect.top - info->yHotspot - rect.top;
 
                 //that would keep the correct location of mouse with hidpi screens
                 pos.x = pos.x * desktophorzres / horzres;
                 pos.y = pos.y * desktopvertres / vertres;
             } else {
                 CURSOR_ERROR("Couldn't get window rectangle");
-                goto icon_error;
+                return;
             }
         } else {
             //that would keep the correct location of mouse with hidpi screens
-            pos.x = ci.ptScreenPos.x * desktophorzres / horzres - clip_rect.left - info.xHotspot;
-            pos.y = ci.ptScreenPos.y * desktopvertres / vertres - clip_rect.top - info.yHotspot;
+            pos.x = ci.ptScreenPos.x * desktophorzres / horzres - clip_rect.left - info->xHotspot;
+            pos.y = ci.ptScreenPos.y * desktopvertres / vertres - clip_rect.top - info->yHotspot;
         }
 
         av_log(s1, AV_LOG_DEBUG, "Cursor pos (%li,%li) -> (%li,%li)\n",
@@ -532,17 +555,9 @@ static void paint_mouse_pointer(AVFormatContext *s1, struct gdigrab *gdigrab)
 
         if (pos.x >= 0 && pos.x <= clip_rect.right - clip_rect.left &&
                 pos.y >= 0 && pos.y <= clip_rect.bottom - clip_rect.top) {
-            if (!DrawIcon(gdigrab->dest_hdc, pos.x, pos.y, icon))
+            if (!DrawIcon(gdigrab->dest_hdc, pos.x, pos.y, gdigrab->cached_icon))
                 CURSOR_ERROR("Couldn't draw icon");
         }
-
-icon_error:
-        if (info.hbmMask)
-            DeleteObject(info.hbmMask);
-        if (info.hbmColor)
-            DeleteObject(info.hbmColor);
-        if (icon)
-            DestroyCursor(icon);
     } else {
         CURSOR_ERROR("Couldn't get cursor info");
     }
@@ -654,6 +669,14 @@ static int gdigrab_read_close(AVFormatContext *s1)
         DeleteObject(s->hbmp);
     if (s->source_hdc)
         DeleteDC(s->source_hdc);
+
+    /* Free cached cursor resources */
+    if (s->cached_info.hbmMask)
+        DeleteObject(s->cached_info.hbmMask);
+    if (s->cached_info.hbmColor)
+        DeleteObject(s->cached_info.hbmColor);
+    if (s->cached_icon)
+        DestroyCursor(s->cached_icon);
 
     return 0;
 }
