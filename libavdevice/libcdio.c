@@ -153,8 +153,16 @@ static int read_seek(AVFormatContext *ctx, int stream_index, int64_t timestamp,
 {
     CDIOContext *s = ctx->priv_data;
     AVStream *st = ctx->streams[0];
+    lsn_t ret;
 
-    cdio_paranoia_seek(s->paranoia, timestamp, SEEK_SET);
+    /* Validate seek position is within disc bounds */
+    if (timestamp < 0 || timestamp > s->last_sector)
+        return AVERROR(EINVAL);
+
+    ret = cdio_paranoia_seek(s->paranoia, timestamp, SEEK_SET);
+    if (ret < 0)
+        return AVERROR(EIO);
+
     avpriv_update_cur_dts(ctx, st, timestamp);
     return 0;
 }
