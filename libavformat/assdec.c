@@ -72,6 +72,11 @@ static int read_dialogue(ASSContext *ass, AVBPrint *dst, const uint8_t *p,
         *start = (hh1*3600LL + mm1*60LL + ss1) * 100LL + ms1;
         *duration = end - *start;
 
+        if (*duration < 0) {
+            *duration = 0;
+            return -1;
+        }
+
         av_bprint_clear(dst);
         av_bprintf(dst, "%u,%d,%s", ass->readorder++, layer, p + pos);
         if (!av_bprint_is_complete(dst))
