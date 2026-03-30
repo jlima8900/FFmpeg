@@ -294,6 +294,33 @@ static int open_slave(AVFormatContext *avf, char *slave, TeeSlave *tee_slave)
         }
     }
 
+    /* Copy programs from source to slave context */
+    for (unsigned i = 0; i < avf->nb_programs; i++) {
+        AVProgram *prog = avf->programs[i];
+        AVProgram *prog2 = av_new_program(avf2, prog->id);
+        if (!prog2) {
+            ret = AVERROR(ENOMEM);
+            goto end;
+        }
+        ret = av_dict_copy(&prog2->metadata, prog->metadata, 0);
+        if (ret < 0)
+            goto end;
+        prog2->program_num = prog->program_num;
+        prog2->pmt_pid     = prog->pmt_pid;
+        prog2->pcr_pid     = prog->pcr_pid;
+        prog2->pmt_version = prog->pmt_version;
+
+        /* Map stream indexes using the stream_map */
+        for (unsigned j = 0; j < prog->nb_stream_indexes; j++) {
+            unsigned src_idx = prog->stream_index[j];
+            if (src_idx < avf->nb_streams) {
+                int mapped_idx = tee_slave->stream_map[src_idx];
+                if (mapped_idx >= 0)
+                    av_program_add_stream_index(avf2, prog->id, (unsigned)mapped_idx);
+            }
+        }
+    }
+
     ret = ff_format_output_open(avf2, filename, &options);
     if (ret < 0) {
         av_log(avf, AV_LOG_ERROR, "Slave '%s': error opening: %s\n", slave,

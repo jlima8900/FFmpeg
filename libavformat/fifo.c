@@ -533,6 +533,28 @@ static int fifo_mux_init(AVFormatContext *avf, const AVOutputFormat *oformat,
             return AVERROR(ENOMEM);
     }
 
+    /* Copy programs from source to fifo context */
+    for (i = 0; i < avf->nb_programs; ++i) {
+        AVProgram *prog = avf->programs[i];
+        AVProgram *prog2 = av_new_program(avf2, prog->id);
+        if (!prog2)
+            return AVERROR(ENOMEM);
+        ret = av_dict_copy(&prog2->metadata, prog->metadata, 0);
+        if (ret < 0)
+            return ret;
+        prog2->program_num = prog->program_num;
+        prog2->pmt_pid     = prog->pmt_pid;
+        prog2->pcr_pid     = prog->pcr_pid;
+        prog2->pmt_version = prog->pmt_version;
+
+        /* Copy stream indexes (1:1 mapping since all streams are cloned) */
+        for (unsigned j = 0; j < prog->nb_stream_indexes; j++) {
+            unsigned idx = prog->stream_index[j];
+            if (idx < avf->nb_streams)
+                av_program_add_stream_index(avf2, prog->id, idx);
+        }
+    }
+
     return 0;
 }
 
