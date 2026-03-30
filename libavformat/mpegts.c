@@ -1019,6 +1019,50 @@ static void reset_pes_packet_state(PESContext *pes)
     av_buffer_unref(&pes->buffer);
 }
 
+/* Detect if video packet contains a keyframe by parsing start codes */
+static int detect_keyframe(const uint8_t *data, int size, enum AVCodecID codec_id)
+{
+    const uint8_t *p = data;
+    const uint8_t *end = data + size - 4;
+    int nal_type;
+
+    /* Only supported codecs */
+    if (codec_id != AV_CODEC_ID_H264 &&
+        codec_id != AV_CODEC_ID_HEVC &&
+        codec_id != AV_CODEC_ID_MPEG1VIDEO &&
+        codec_id != AV_CODEC_ID_MPEG2VIDEO)
+        return 0;
+
+    while (p < end) {
+        if (p[0] == 0 && p[1] == 0 && p[2] == 1) {
+            switch (codec_id) {
+            case AV_CODEC_ID_H264:
+                /* NAL type 5 = IDR slice */
+                if ((p[3] & 0x1F) == 5)
+                    return 1;
+                break;
+            case AV_CODEC_ID_HEVC:
+                /* NAL types 16-21 = BLA/IDR/CRA */
+                nal_type = (p[3] >> 1) & 0x3F;
+                if (nal_type >= 16 && nal_type <= 21)
+                    return 1;
+                break;
+            case AV_CODEC_ID_MPEG2VIDEO:
+            case AV_CODEC_ID_MPEG1VIDEO:
+                /* Picture start code 0x00, pic type in bits 3-5: 1=I */
+                if (p[3] == 0x00 && p + 5 < data + size &&
+                    ((p[5] >> 3) & 0x07) == 1)
+                    return 1;
+                break;
+            }
+            p += 4;
+        } else {
+            p++;
+        }
+    }
+    return 0;
+}
+
 static void new_data_packet(const uint8_t *buffer, int len, AVPacket *pkt)
 {
     av_packet_unref(pkt);
@@ -1071,6 +1115,11 @@ static int new_pes_packet(PESContext *pes, AVPacket *pkt)
     /* store position of first TS packet of this PES packet */
     pkt->pos   = pes->ts_packet_pos;
     pkt->flags = pes->flags;
+
+    /* Detect keyframes in video streams for better seeking */
+    if (pes->st && pes->st->codecpar->codec_type == AVMEDIA_TYPE_VIDEO &&
+        detect_keyframe(pkt->data, pkt->size, pes->st->codecpar->codec_id))
+        pkt->flags |= AV_PKT_FLAG_KEY;
 
     pes->buffer = NULL;
     reset_pes_packet_state(pes);
