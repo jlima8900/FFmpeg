@@ -474,7 +474,7 @@ static int spdif_header_truehd(AVFormatContext *s, AVPacket *pkt)
                delta_samples, delta_bytes);
 
         /* sanity check */
-        if (padding_remaining < 0 || padding_remaining >= MAT_FRAME_SIZE / 2) {
+        if (padding_remaining < 0 || padding_remaining >= MAT_FRAME_SIZE * 2) {
             avpriv_request_sample(s, "Unusual frame timing: %"PRIu16" => %"PRIu16", %d samples/frame",
                                   ctx->truehd_prev_time, input_timing, ctx->truehd_samples_per_frame);
             padding_remaining = 0;
