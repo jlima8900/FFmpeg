@@ -73,6 +73,7 @@ typedef struct {
     ConcatMatchMode stream_match_mode;
     unsigned auto_convert;
     int segment_time_metadata;
+    int probe_duration;
 } ConcatContext;
 
 static int concat_probe(const AVProbeData *probe)
@@ -658,6 +659,32 @@ fail:
     return ret == AVERROR_EOF ? 0 : ret;
 }
 
+/* Probe a file to get its duration without fully opening it */
+static int64_t probe_file_duration(AVFormatContext *avf, ConcatFile *file)
+{
+    AVFormatContext *probe_avf = NULL;
+    int64_t duration = AV_NOPTS_VALUE;
+    int ret;
+
+    probe_avf = avformat_alloc_context();
+    if (!probe_avf)
+        return AV_NOPTS_VALUE;
+
+    probe_avf->interrupt_callback = avf->interrupt_callback;
+    ret = avformat_open_input(&probe_avf, file->url, NULL, NULL);
+    if (ret < 0) {
+        av_log(avf, AV_LOG_WARNING, "Could not probe duration for '%s'\n", file->url);
+        return AV_NOPTS_VALUE;
+    }
+
+    ret = avformat_find_stream_info(probe_avf, NULL);
+    if (ret >= 0 && probe_avf->duration > 0)
+        duration = probe_avf->duration;
+
+    avformat_close_input(&probe_avf);
+    return duration;
+}
+
 static int concat_read_header(AVFormatContext *avf)
 {
     ConcatContext *cat = avf->priv_data;
@@ -681,10 +708,20 @@ static int concat_read_header(AVFormatContext *avf)
         if (cat->files[i].user_duration == AV_NOPTS_VALUE) {
             if (cat->files[i].inpoint == AV_NOPTS_VALUE || cat->files[i].outpoint == AV_NOPTS_VALUE ||
                 cat->files[i].outpoint - (uint64_t)cat->files[i].inpoint != av_sat_sub64(cat->files[i].outpoint, cat->files[i].inpoint)
-            )
+            ) {
+                /* Probe duration if option enabled */
+                if (cat->probe_duration) {
+                    int64_t probed = probe_file_duration(avf, &cat->files[i]);
+                    if (probed != AV_NOPTS_VALUE) {
+                        cat->files[i].user_duration = probed;
+                        goto have_duration;
+                    }
+                }
                 break;
+            }
             cat->files[i].user_duration = cat->files[i].outpoint - cat->files[i].inpoint;
         }
+have_duration:
         cat->files[i].duration = cat->files[i].user_duration;
         if (time + (uint64_t)cat->files[i].user_duration > INT64_MAX)
             return AVERROR_INVALIDDATA;
@@ -940,6 +977,8 @@ static const AVOption options[] = {
       OFFSET(auto_convert), AV_OPT_TYPE_BOOL, {.i64 = 1}, 0, 1, DEC },
     { "segment_time_metadata", "output file segment start time and duration as packet metadata",
       OFFSET(segment_time_metadata), AV_OPT_TYPE_BOOL, {.i64 = 0}, 0, 1, DEC },
+    { "probe_duration", "probe file durations for accurate total duration",
+      OFFSET(probe_duration), AV_OPT_TYPE_BOOL, {.i64 = 0}, 0, 1, DEC },
     { NULL }
 };
 
