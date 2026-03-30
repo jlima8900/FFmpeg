@@ -800,7 +800,10 @@ static int prepare_input_packet(AVFormatContext *s, AVStream *st, AVPacket *pkt)
         /* check that the dts are increasing (or at least non-decreasing,
          * if the format allows it */
         if (sti->cur_dts != AV_NOPTS_VALUE &&
-            ((!(s->oformat->flags & AVFMT_TS_NONSTRICT) && sti->cur_dts >= pkt->dts) ||
+            ((!(s->oformat->flags & AVFMT_TS_NONSTRICT) &&
+              st->codecpar->codec_type != AVMEDIA_TYPE_SUBTITLE &&
+              st->codecpar->codec_type != AVMEDIA_TYPE_DATA &&
+              sti->cur_dts >= pkt->dts) ||
              sti->cur_dts > pkt->dts)) {
             av_log(s, AV_LOG_ERROR,
                    "Application provided invalid, non monotonically increasing "
