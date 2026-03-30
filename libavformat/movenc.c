@@ -2563,6 +2563,12 @@ static int mov_write_pasp_tag(AVIOContext *pb, MOVTrack *track)
     av_reduce(&sar.num, &sar.den, track->par->sample_aspect_ratio.num,
               track->par->sample_aspect_ratio.den, INT_MAX);
 
+    /* Snap near-1:1 SAR to exactly 1:1 for player compatibility */
+    if (sar.num && sar.den &&
+        sar.num > sar.den * 999 / 1000 && sar.num < sar.den * 1001 / 1000) {
+        sar.num = sar.den = 1;
+    }
+
     avio_wb32(pb, 16);
     ffio_wfourcc(pb, "pasp");
     avio_wb32(pb, sar.num);
