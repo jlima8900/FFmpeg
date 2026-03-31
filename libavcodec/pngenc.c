@@ -396,8 +396,10 @@ static int encode_headers(AVCodecContext *avctx, const AVFrame *pict)
       AV_WB32(s->buf + 4, s->dpm);
       s->buf[8] = 1; /* unit specifier is meter */
     } else {
-      AV_WB32(s->buf, avctx->sample_aspect_ratio.num);
-      AV_WB32(s->buf + 4, avctx->sample_aspect_ratio.den);
+      /* pHYs stores pixels-per-unit (X, Y), which is the inverse of SAR.
+       * SAR = Y_res / X_res, so X_res = den, Y_res = num */
+      AV_WB32(s->buf, avctx->sample_aspect_ratio.den);
+      AV_WB32(s->buf + 4, avctx->sample_aspect_ratio.num);
       s->buf[8] = 0; /* unit specifier is unknown */
     }
     png_write_chunk(&s->bytestream, MKTAG('p', 'H', 'Y', 's'), s->buf, 9);
