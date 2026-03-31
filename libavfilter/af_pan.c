@@ -69,8 +69,9 @@ static int parse_channel_name(char **arg, int *rchannel, int *rnamed)
     int len, channel_id = 0;
 
     skip_spaces(arg);
-    /* try to parse a channel name, e.g. "FL" */
-    if (sscanf(*arg, "%7[A-Z]%n", buf, &len) >= 1) {
+    /* try to parse a channel name, e.g. "FL" or "LFE2" */
+    if (sscanf(*arg, "%7[A-Z0-9]%n", buf, &len) >= 1 &&
+        buf[0] >= 'A' && buf[0] <= 'Z') {
         channel_id = av_channel_from_string(buf);
         if (channel_id < 0)
             return channel_id;
