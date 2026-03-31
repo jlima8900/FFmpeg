@@ -723,8 +723,12 @@ static int decode_phys_chunk(AVCodecContext *avctx, PNGDecContext *s,
         av_log(avctx, AV_LOG_ERROR, "pHYs after IDAT\n");
         return AVERROR_INVALIDDATA;
     }
-    avctx->sample_aspect_ratio.num = bytestream2_get_be32(gb);
+    /* pHYs stores pixels-per-unit (X, Y), but sample_aspect_ratio is the
+     * inverse: it describes how many units wide a pixel is compared to how
+     * many units tall. So if X has more pixels-per-unit than Y, the pixels
+     * are wider (SAR > 1), meaning SAR = Y_res / X_res. */
     avctx->sample_aspect_ratio.den = bytestream2_get_be32(gb);
+    avctx->sample_aspect_ratio.num = bytestream2_get_be32(gb);
     if (avctx->sample_aspect_ratio.num < 0 || avctx->sample_aspect_ratio.den < 0)
         avctx->sample_aspect_ratio = (AVRational){ 0, 1 };
     bytestream2_skip(gb, 1); /* unit specifier */
