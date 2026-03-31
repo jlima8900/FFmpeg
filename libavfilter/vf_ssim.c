@@ -161,7 +161,8 @@ static void ssim_4x4xn_8bit(const uint8_t *main, ptrdiff_t main_stride,
 
 static float ssim_end1x(int64_t s1, int64_t s2, int64_t ss, int64_t s12, int max)
 {
-    int64_t ssim_c1 = (int64_t)(.01*.01*max*max*64 + .5);
+    /* Constants scaled by 64*64 to match the accumulated sums over 8x8 blocks */
+    int64_t ssim_c1 = (int64_t)(.01*.01*max*max*64*64 + .5);
     int64_t ssim_c2 = (int64_t)(.03*.03*max*max*64*63 + .5);
 
     int64_t fs1 = s1;
@@ -177,7 +178,8 @@ static float ssim_end1x(int64_t s1, int64_t s2, int64_t ss, int64_t s12, int max
 
 static float ssim_end1(int s1, int s2, int ss, int s12)
 {
-    static const int ssim_c1 = (int)(.01*.01*255*255*64 + .5);
+    /* Constants scaled by 64*64 to match the accumulated sums over 8x8 blocks */
+    static const int ssim_c1 = (int)(.01*.01*255*255*64*64 + .5);
     static const int ssim_c2 = (int)(.03*.03*255*255*64*63 + .5);
 
     int fs1 = s1;
