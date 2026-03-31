@@ -286,9 +286,11 @@ static int write_frame(AVFilterContext *ctx, FPSContext *s, AVFilterLink *outlin
      * - If we have two buffered frames and the second frame is acceptable
      *   as the next output frame, then drop the first buffered frame.
      * - If we have status (EOF) set, drop frames when we hit the
-     *   status timestamp. */
+     *   status timestamp, but ensure we output at least once if we have
+     *   a single-frame input that hasn't been output yet. */
     if ((s->frames_count == 2 && s->frames[1]->pts <= s->next_pts) ||
-        (s->status            && s->status_pts     <= s->next_pts)) {
+        (s->status && s->status_pts <= s->next_pts &&
+         (s->status_pts < s->next_pts || s->frames_in > 1 || s->cur_frame_out > 0))) {
 
         frame = shift_frame(ctx, s);
         av_frame_free(&frame);
