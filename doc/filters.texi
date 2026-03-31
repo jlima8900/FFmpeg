@@ -1684,7 +1684,7 @@ Default value is @code{0}.
 
 @subsection Commands
 
-This filter supports the some above mentioned options as @ref{commands}.
+This filter supports some of the above mentioned options as @ref{commands}.
 
 @subsection Examples
 
@@ -30233,7 +30233,7 @@ value is "25".
 @item c0, c1, c2, c3, c4, c5, c6, c7
 Set 8 colors. Default values for colors is to pick random one.
 
-@item x0, y0, y0, y1
+@item x0, y0, x1, y1
 Set gradient line source and destination points. If negative or out of range, random ones
 are picked.
 
@@ -30270,7 +30270,7 @@ Default type is @var{linear}.
 
 @subsection Commands
 
-This source supports the some above options as @ref{commands}.
+This source supports some of the above options as @ref{commands}.
 
 @section mandelbrot
 
@@ -31151,7 +31151,7 @@ Default value is 0.
 
 @subsection Commands
 
-This source supports the some above options as @ref{commands}.
+This source supports some of the above options as @ref{commands}.
 
 @subsection Examples
 
@@ -31261,7 +31261,7 @@ Set the length of displayed audio waves in number of frames.
 
 @subsection Commands
 
-Filter supports the some above options as @ref{commands}.
+Filter supports some of the above options as @ref{commands}.
 
 @section abitscope
 
@@ -34338,7 +34338,7 @@ Set foreground/background/additional color.
 
 @subsection Commands
 
-This source supports the some above options as @ref{commands}.
+This source supports some of the above options as @ref{commands}.
 
 @anchor{movie}
 @section movie
