@@ -3065,9 +3065,15 @@ static int mkv_write_packet_internal(AVFormatContext *s, const AVPacket *pkt)
     int64_t ts = track->write_dts ? pkt->dts : pkt->pts;
     int64_t relative_packet_pos;
 
+    /* Fall back to other timestamp field if preferred one is missing */
     if (ts == AV_NOPTS_VALUE) {
-        av_log(s, AV_LOG_ERROR, "Can't write packet with unknown timestamp\n");
-        return AVERROR(EINVAL);
+        ts = track->write_dts ? pkt->pts : pkt->dts;
+        if (ts == AV_NOPTS_VALUE) {
+            av_log(s, AV_LOG_ERROR, "Can't write packet with unknown timestamp\n");
+            return AVERROR(EINVAL);
+        }
+        av_log(s, AV_LOG_WARNING, "Using %s as timestamp for stream %d\n",
+               track->write_dts ? "pts" : "dts", pkt->stream_index);
     }
     ts += track->ts_offset;
 
