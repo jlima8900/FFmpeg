@@ -7836,7 +7836,9 @@ static uint32_t rgb_to_yuv(uint32_t rgb)
 static int mov_create_dvd_sub_decoder_specific_info(MOVTrack *track,
                                                     AVStream *st)
 {
-    int i, width = 720, height = 480;
+    /* Use existing dimensions if valid, otherwise default to DVD NTSC */
+    int i, width = st->codecpar->width > 0 ? st->codecpar->width : 720;
+    int height = st->codecpar->height > 0 ? st->codecpar->height : 480;
     int have_palette = 0, have_size = 0;
     uint32_t palette[16];
     char *cur = track->extradata[track->last_stsd_index];
