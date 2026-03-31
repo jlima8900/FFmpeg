@@ -263,6 +263,13 @@ static int write_option(void *optctx, const OptionDef *po, const char *opt,
             return AVERROR(EINVAL);
         }
 
+        if (!arg) {
+            av_log(NULL, AV_LOG_FATAL,
+                   "Missing filename for option '%s' with '/' prefix\n",
+                   po->name);
+            return AVERROR(EINVAL);
+        }
+
         arg_allocated = read_file_to_string(arg);
         if (!arg_allocated) {
             av_log(NULL, AV_LOG_FATAL,
