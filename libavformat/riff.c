@@ -626,7 +626,7 @@ const AVCodecTag ff_codec_wav_tags[] = {
 
 #if CONFIG_AVI_MUXER || CONFIG_WTV_MUXER
 const AVCodecTag *const ff_riff_codec_tags_list[] = {
-    ff_codec_bmp_tags, ff_codec_wav_tags, NULL
+    ff_codec_bmp_tags, ff_codec_bmp_tags_unofficial, ff_codec_wav_tags, NULL
 };
 #endif
 
