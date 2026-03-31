@@ -411,6 +411,11 @@ static int config_output(AVFilterLink *outlink)
     showwaves->q = av_make_q(0, 1);
     showwaves->c = av_make_q(0, 1);
 
+    if (nb_channels <= 0) {
+        av_log(ctx, AV_LOG_ERROR, "Invalid number of channels: %d\n", nb_channels);
+        return AVERROR(EINVAL);
+    }
+
     if (showwaves->single_pic) {
         showwaves->n = av_make_q(1, 1);
         l->frame_rate = av_make_q(1, 1);
@@ -430,7 +435,7 @@ static int config_output(AVFilterLink *outlink)
         return AVERROR(ENOMEM);
     }
 
-    showwaves->history_nb_samples = av_rescale(showwaves->w * nb_channels * 2,
+    showwaves->history_nb_samples = av_rescale((int64_t)showwaves->w * nb_channels * 2,
                                                showwaves->n.num, showwaves->n.den);
     if (showwaves->history_nb_samples <= 0)
         return AVERROR(EINVAL);
