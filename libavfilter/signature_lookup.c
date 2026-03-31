@@ -238,7 +238,7 @@ static MatchingInfo* get_matching_parameters(AVFilterContext *ctx, SignatureCont
                     pairs[i].dist = l1dist;
                     pairs[i].b_pos[0] = j;
                     pairs[i].b[0] = s;
-                } else if (l1dist == pairs[i].dist) {
+                } else if (l1dist == pairs[i].dist && pairs[i].size < COARSE_SIZE) {
                     pairs[i].b[pairs[i].size] = s;
                     pairs[i].b_pos[pairs[i].size] = j;
                     pairs[i].size++;
@@ -251,6 +251,7 @@ static MatchingInfo* get_matching_parameters(AVFilterContext *ctx, SignatureCont
         for (; i < COARSE_SIZE; i++) {
             pairs[i].size = 0;
             pairs[i].dist = 99999;
+            pairs[i].a = NULL;
         }
     }
 
@@ -295,7 +296,7 @@ static MatchingInfo* get_matching_parameters(AVFilterContext *ctx, SignatureCont
     if (hmax > 0) {
         hmax = (int) (0.7*hmax);
         for (i = 0; i < MAX_FRAMERATE; i++) {
-            for (j = 0; j < HOUGH_MAX_OFFSET; j++) {
+            for (j = 0; j < 2 * HOUGH_MAX_OFFSET + 1; j++) {
                 if (hmax < hspace[i][j].score) {
                     c->next = av_malloc(sizeof(MatchingInfo));
                     c = c->next;
@@ -546,6 +547,8 @@ static MatchingInfo lookup_signatures(AVFilterContext *ctx, SignatureContext *sc
     bestmatch.score = 0;
     bestmatch.meandist = 99999;
     bestmatch.whole = 0;
+    bestmatch.first = NULL;
+    bestmatch.second = NULL;
 
     fill_l1distlut(sc->l1distlut);
 
