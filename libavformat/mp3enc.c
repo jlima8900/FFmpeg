@@ -185,6 +185,16 @@ static int mp3_write_xing(AVFormatContext *s)
              return -1;
     }
 
+    /* If we have queued audio packets, parse the first one to get the actual
+     * channel mode (stereo vs joint stereo). This ensures the Xing header
+     * matches the actual encoding mode used by the encoder. */
+    if (mp3->queue.head && mp3->queue.head->pkt.size >= 4) {
+        uint32_t first_header = AV_RB32(mp3->queue.head->pkt.data);
+        MPADecodeHeader first_mpah;
+        if (avpriv_mpegaudio_decode_header(&first_mpah, first_header) >= 0)
+            channels = first_mpah.mode;
+    }
+
     /* dummy MPEG audio header */
     header  =  0xffU                                 << 24; // sync
     header |= (0x7 << 5 | ver << 3 | 0x1 << 1 | 0x1) << 16; // sync/audio-version/layer 3/no crc*/
