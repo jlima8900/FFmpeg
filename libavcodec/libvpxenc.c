@@ -949,18 +949,21 @@ static void set_color_range(AVCodecContext *avctx)
 
 /**
  * Set the target bitrate to VPX library default. Also set CRF to 32 if needed.
+ * When CRF is specified without bitrate, use a high ceiling to allow true VBR.
  */
 static void set_vp8_defaults(AVCodecContext *avctx,
                              struct vpx_codec_enc_cfg *enccfg)
 {
     VPxContext *ctx = avctx->priv_data;
     av_assert0(!avctx->bit_rate);
-    avctx->bit_rate = enccfg->rc_target_bitrate * 1000;
     if (enccfg->rc_end_usage == VPX_CQ) {
-        av_log(avctx, AV_LOG_WARNING,
-               "Bitrate not specified for constrained quality mode, using default of %dkbit/sec\n",
-               enccfg->rc_target_bitrate);
+        /* User specified CRF without bitrate - use high ceiling for true VBR.
+         * VP8's constrained quality mode uses bitrate as a ceiling, so we set
+         * it high enough to be effectively unlimited (1 Gbps). */
+        enccfg->rc_target_bitrate = 1000000;
+        avctx->bit_rate = enccfg->rc_target_bitrate * 1000;
     } else {
+        avctx->bit_rate = enccfg->rc_target_bitrate * 1000;
         enccfg->rc_end_usage = VPX_CQ;
         ctx->crf = 32;
         av_log(avctx, AV_LOG_WARNING,
