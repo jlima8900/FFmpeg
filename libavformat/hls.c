@@ -84,6 +84,7 @@ struct segment {
     uint8_t iv[16];
     /* associated Media Initialization Section, treated as a segment */
     struct segment *init_section;
+    int discontinuity; /* EXT-X-DISCONTINUITY before this segment */
 };
 
 struct rendition;
@@ -174,6 +175,12 @@ struct playlist {
     int n_init_sections;
     struct segment **init_sections;
     int is_subtitle; /* Indicates if it's a subtitle playlist */
+
+    /* EXT-X-DISCONTINUITY handling: track timestamp offset when
+     * crossing discontinuity boundaries */
+    int64_t discontinuity_ts_offset; /* offset to add to packet timestamps */
+    int64_t last_seg_end_ts;         /* expected timestamp at end of last segment */
+    int in_discontinuity;            /* currently in a discontinuity segment */
 };
 
 /*
@@ -335,6 +342,9 @@ static struct playlist *new_playlist(HLSContext *c, const char *url,
 
     pls->is_id3_timestamped = -1;
     pls->id3_mpegts_timestamp = AV_NOPTS_VALUE;
+
+    /* Discontinuity handling */
+    pls->last_seg_end_ts = AV_NOPTS_VALUE;
 
     dynarray_add(&c->playlists, &c->n_playlists, pls);
     return pls;
@@ -786,6 +796,7 @@ static int parse_playlist(HLSContext *c, const char *url,
                           struct playlist *pls, AVIOContext *in)
 {
     int ret = 0, is_segment = 0, is_variant = 0;
+    int is_discontinuity = 0;
     int64_t duration = 0;
     enum KeyType key_type = KEY_NONE;
     uint8_t iv[16] = "";
@@ -969,6 +980,8 @@ static int parse_playlist(HLSContext *c, const char *url,
         } else if (av_strstart(line, "#EXT-X-ENDLIST", &ptr)) {
             if (pls)
                 pls->finished = 1;
+        } else if (av_strstart(line, "#EXT-X-DISCONTINUITY", &ptr)) {
+            is_discontinuity = 1;
         } else if (av_strstart(line, "#EXTINF:", &ptr)) {
             double d = atof(ptr) * AV_TIME_BASE;
             if (d < 0 || d > INT64_MAX || isnan(d)) {
@@ -1063,8 +1076,10 @@ static int parse_playlist(HLSContext *c, const char *url,
                 }
                 seg->duration = duration;
                 seg->key_type = key_type;
+                seg->discontinuity = is_discontinuity;
                 dynarray_add(&pls->segments, &pls->n_segments, seg);
                 is_segment = 0;
+                is_discontinuity = 0;
 
                 seg->size = seg_size;
                 if (seg_size >= 0) {
@@ -1746,6 +1761,12 @@ restart:
     } else {
         ff_format_io_close(v->parent, &v->input);
     }
+
+    /* Track expected end timestamp for discontinuity handling */
+    if (v->last_seg_end_ts == AV_NOPTS_VALUE)
+        v->last_seg_end_ts = 0;
+    v->last_seg_end_ts += seg->duration;
+
     v->cur_seq_no++;
 
     c->cur_seq_no = v->cur_seq_no;
@@ -2555,6 +2576,27 @@ static int hls_read_packet(AVFormatContext *s, AVPacket *pkt)
                 }
 
                 seg = current_segment(pls);
+
+                /* Handle EXT-X-DISCONTINUITY: adjust timestamps to be continuous */
+                if (seg && seg->discontinuity && !pls->in_discontinuity) {
+                    /* Entering a discontinuity segment - calculate timestamp offset */
+                    pls->in_discontinuity = 1;
+                    if (pls->pkt->dts != AV_NOPTS_VALUE && pls->last_seg_end_ts != AV_NOPTS_VALUE) {
+                        AVRational tb = get_timebase(pls);
+                        int64_t expected_ts = av_rescale_q(pls->last_seg_end_ts, AV_TIME_BASE_Q, tb);
+                        pls->discontinuity_ts_offset = expected_ts - pls->pkt->dts;
+                    }
+                } else if (seg && !seg->discontinuity) {
+                    pls->in_discontinuity = 0;
+                }
+
+                /* Apply discontinuity timestamp offset */
+                if (pls->discontinuity_ts_offset && pls->pkt->dts != AV_NOPTS_VALUE) {
+                    pls->pkt->dts += pls->discontinuity_ts_offset;
+                    if (pls->pkt->pts != AV_NOPTS_VALUE)
+                        pls->pkt->pts += pls->discontinuity_ts_offset;
+                }
+
                 if (seg && seg->key_type == KEY_SAMPLE_AES && !strstr(pls->ctx->iformat->name, "mov")) {
                     enum AVCodecID codec_id = pls->ctx->streams[pls->pkt->stream_index]->codecpar->codec_id;
                     memcpy(c->crypto_ctx.iv, seg->iv, sizeof(seg->iv));
