@@ -426,7 +426,7 @@ static int encode_codebook(CinepakEncContext *s, int *codebook, int size,
     return ret;
 }
 
-// sets out to the sub picture starting at (x,y) in in
+// sets out to the sub picture starting at (x,y) in
 static void get_sub_picture(CinepakEncContext *s, int x, int y,
                             uint8_t *const in_data[4], const int in_linesize[4],
                             uint8_t *out_data[4], int out_linesize[4])
