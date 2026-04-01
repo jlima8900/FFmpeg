@@ -198,7 +198,7 @@ fail:
  * The most recent assignments overwrite the previous values.
  *
  * @param[in] avctx codec context (AVCodecContext)
- * @param[out] cdsc contains all APV encoder encoder parameters that should be initialized before the encoder is use
+ * @param[out] cdsc contains all APV encoder parameters that should be initialized before the encoder is used
  *
  * @return 0 on success, negative error code on failure
  */
