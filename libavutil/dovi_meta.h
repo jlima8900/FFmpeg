@@ -72,7 +72,7 @@ enum AVDOVICompression {
 };
 
 /**
- * Allocate a AVDOVIDecoderConfigurationRecord structure and initialize its
+ * Allocate an AVDOVIDecoderConfigurationRecord structure and initialize its
  * fields to default values.
  *
  * @return the newly allocated struct or NULL on failure

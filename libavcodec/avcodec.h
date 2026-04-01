@@ -2444,9 +2444,9 @@ int avcodec_send_frame(AVCodecContext *avctx, const AVFrame *frame);
 int avcodec_receive_packet(AVCodecContext *avctx, AVPacket *avpkt);
 
 /**
- * Create and return a AVHWFramesContext with values adequate for hardware
+ * Create and return an AVHWFramesContext with values adequate for hardware
  * decoding. This is meant to get called from the get_format callback, and is
- * a helper for preparing a AVHWFramesContext for AVCodecContext.hw_frames_ctx.
+ * a helper for preparing an AVHWFramesContext for AVCodecContext.hw_frames_ctx.
  * This API is for decoding with certain hardware acceleration modes/APIs only.
  *
  * The returned AVHWFramesContext is not initialized. The caller must do this
@@ -2471,7 +2471,7 @@ int avcodec_receive_packet(AVCodecContext *avctx, AVPacket *avpkt);
  *   is actually supported varies. Some do this check only after the user's
  *   get_format callback returns.)
  * - The hw_pix_fmt must be one of the choices suggested by get_format. If the
- *   user decides to use a AVHWFramesContext prepared with this API function,
+ *   user decides to use an AVHWFramesContext prepared with this API function,
  *   the user must return the same hw_pix_fmt from get_format.
  * - The device_ref passed to this function must support the given hw_pix_fmt.
  * - After calling this API function, it is the user's responsibility to

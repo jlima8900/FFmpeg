@@ -343,7 +343,7 @@ int av_hwdevice_ctx_create_derived_opts(AVBufferRef **dst_ctx,
 /**
  * Allocate an AVHWFramesContext tied to a given device context.
  *
- * @param device_ctx a reference to a AVHWDeviceContext. This function will make
+ * @param device_ctx a reference to an AVHWDeviceContext. This function will make
  *                   a new reference for internal use, the one passed to the
  *                   function remains owned by the caller.
  * @return a reference to the newly created AVHWFramesContext on success or NULL

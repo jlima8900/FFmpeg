@@ -399,7 +399,7 @@ typedef struct AVIAMFAudioElement {
 const AVClass *av_iamf_audio_element_get_class(void);
 
 /**
- * Allocates a AVIAMFAudioElement, and initializes its fields with default values.
+ * Allocates an AVIAMFAudioElement, and initializes its fields with default values.
  * No layers are allocated. Must be freed with av_iamf_audio_element_free().
  *
  * @see av_iamf_audio_element_add_layer()
@@ -647,7 +647,7 @@ typedef struct AVIAMFMixPresentation {
 const AVClass *av_iamf_mix_presentation_get_class(void);
 
 /**
- * Allocates a AVIAMFMixPresentation, and initializes its fields with default
+ * Allocates an AVIAMFMixPresentation, and initializes its fields with default
  * values. No submixes are allocated.
  * Must be freed with av_iamf_mix_presentation_free().
  *
