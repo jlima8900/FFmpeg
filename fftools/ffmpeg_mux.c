@@ -305,7 +305,7 @@ static int mux_packet_filter(Muxer *mux, MuxThreadContext *mt,
     }
 
     // emit heartbeat for -fix_sub_duration;
-    // we are only interested in heartbeats on on random access points.
+    // we are only interested in heartbeats on random access points.
     if (pkt && (pkt->flags & AV_PKT_FLAG_KEY)) {
         mt->fix_sub_duration_pkt->opaque    = (void*)(intptr_t)PKT_OPAQUE_FIX_SUB_DURATION;
         mt->fix_sub_duration_pkt->pts       = pkt->pts;
