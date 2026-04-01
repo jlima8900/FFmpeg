@@ -1423,7 +1423,7 @@ version 0.10:
 - silencedetect audio filter
 - ffprobe -show_program_version, -show_library_versions, -show_versions options
 - rv34: frame-level multi-threading
-- optimized iMDCT transform on x86 using SSE for for mpegaudiodec
+- optimized iMDCT transform on x86 using SSE for mpegaudiodec
 - Improved PGS subtitle decoder
 - dumpgraph option to lavfi device
 - r210 and r10k encoders
