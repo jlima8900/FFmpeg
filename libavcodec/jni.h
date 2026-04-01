@@ -60,7 +60,7 @@ int av_jni_set_android_app_ctx(void *app_ctx, void *log_ctx);
  *
  * This function is only available on Android.
  *
- * @return a pointer the the Android application context
+ * @return a pointer to the Android application context
  */
 void *av_jni_get_android_app_ctx(void);
 
