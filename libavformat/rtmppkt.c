@@ -381,7 +381,7 @@ int ff_rtmp_packet_write(URLContext *h, RTMPPacket *pkt,
 
     // FIXME:
     // Writing packets is currently not optimized to minimize system calls.
-    // Since system calls flush on exit which we cannot change in a system-independant way.
+    // Since system calls flush on exit which we cannot change in a system-independent way.
     // We should fix this behavior and by writing packets in a single or in as few as possible system calls.
     // Protocols like TCP and RTMP should benefit from this when enabling TCP_NODELAY.
 

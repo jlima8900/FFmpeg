@@ -3094,7 +3094,7 @@ static int rtmp_write(URLContext *s, const uint8_t *buf, int size)
                                              pkttype, ts, pktsize)) < 0)
                 return ret;
 
-            // If rt->listen, then we're running as a a server and should
+            // If rt->listen, then we're running as a server and should
             // use the ID that we've sent in Stream Begin and in the
             // _result to createStream.
             // Otherwise, we're running as a client and should use the ID
