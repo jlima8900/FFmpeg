@@ -2479,7 +2479,7 @@ int avcodec_receive_packet(AVCodecContext *avctx, AVPacket *avpkt);
  *   and to set AVCodecContext.hw_frames_ctx to it. If done, this must be done
  *   before returning from get_format (this is implied by the normal
  *   AVCodecContext.hw_frames_ctx API rules).
- * - The AVHWFramesContext parameters may change every time time get_format is
+ * - The AVHWFramesContext parameters may change every time get_format is
  *   called. Also, AVCodecContext.hw_frames_ctx is reset before get_format. So
  *   you are inherently required to go through this process again on every
  *   get_format call.
