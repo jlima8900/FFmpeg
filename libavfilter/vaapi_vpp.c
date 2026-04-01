@@ -85,7 +85,7 @@ int ff_vaapi_vpp_config_input(AVFilterLink *inlink)
 
     ctx->input_frames_ref = av_buffer_ref(l->hw_frames_ctx);
     if (!ctx->input_frames_ref) {
-        av_log(avctx, AV_LOG_ERROR, "A input frames reference create "
+        av_log(avctx, AV_LOG_ERROR, "Input frames reference creation "
                "failed.\n");
         return AVERROR(ENOMEM);
     }

@@ -230,7 +230,7 @@ static int config_input(AVFilterLink *inlink)
 
     s->input_frames_ref = av_buffer_ref(l->hw_frames_ctx);
     if (!s->input_frames_ref) {
-        av_log(ctx, AV_LOG_ERROR, "A input frames reference create "
+        av_log(ctx, AV_LOG_ERROR, "Input frames reference creation "
                "failed.\n");
         return AVERROR(ENOMEM);
     }
