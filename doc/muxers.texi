@@ -639,7 +639,7 @@ Specify @code{on} to force writing a timecode track, @code{off} to disable it
 and @code{auto} to write a timecode track only for mov and mp4 output (default).
 
 Setting value to @samp{pts} is applicable only for a live encoding use case,
-where PTS values are set as as wallclock time at the source. For example, an
+where PTS values are set as wallclock time at the source. For example, an
 encoding use case with decklink capture source where @option{video_pts} and
 @option{audio_pts} are set to @samp{abs_wallclock}.
 @end table
