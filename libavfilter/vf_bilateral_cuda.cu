@@ -94,16 +94,16 @@ __device__ static inline void apply_biltaeral(
     float w = 0.f;
 
     int channel_ratio = width / width_uv; // ratio between Y channel and UV channels
-    float4 currrent_pixel;
+    float4 current_pixel;
 
     if (!src_tex_V) { // format is in nv12
         float2 temp_uv   = tex2D<float2>(src_tex, x/channel_ratio, y/channel_ratio) * 255.f;
-        currrent_pixel.x = tex2D<float>(src_tex_Y, x, y) * 255.f;
-        currrent_pixel.y = temp_uv.x;
-        currrent_pixel.z = temp_uv.y;
-        currrent_pixel.w = 0.f;
+        current_pixel.x = tex2D<float>(src_tex_Y, x, y) * 255.f;
+        current_pixel.y = temp_uv.x;
+        current_pixel.z = temp_uv.y;
+        current_pixel.w = 0.f;
     } else { // format is fully planar
-        currrent_pixel = make_float4(tex2D<float>(src_tex_Y, x, y) * 255.f,
+        current_pixel = make_float4(tex2D<float>(src_tex_Y, x, y) * 255.f,
                                      tex2D<float>(src_tex,   x/channel_ratio, y/channel_ratio) * 255.f,
                                      tex2D<float>(src_tex_V, x/channel_ratio, y/channel_ratio) * 255.f,
                                      0.f);
@@ -128,7 +128,7 @@ __device__ static inline void apply_biltaeral(
                                                tex2D<float>(src_tex, r/channel_ratio, c/channel_ratio) * 255.f,
                                                tex2D<float>(src_tex_V, r/channel_ratio, c/channel_ratio) * 255.f, 0.f);
                 }
-                w=calculate_w(x,y,r,c,currrent_pixel,neighbor_pixel,sigma_space,sigma_color);
+                w=calculate_w(x,y,r,c,current_pixel,neighbor_pixel,sigma_space,sigma_color);
                 Wp+=w;
                 new_pixel_value+= neighbor_pixel*w;
             }
