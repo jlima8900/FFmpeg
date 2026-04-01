@@ -1067,7 +1067,7 @@ static void hb_synthesis(AMRWBContext *ctx, int subframe, float *samples,
  * @param[in,out] mem              State from last filtering (updated)
  * @param[in]     in               Input speech data (high-band)
  *
- * @remark It is safe to pass the same array in in and out parameters
+ * @remark It is safe to pass the same array in and out parameters
  */
 
 #ifndef hb_fir_filter
