@@ -199,7 +199,7 @@ int av_dict_parse_string(AVDictionary **pm, const char *str,
  *
  * @note Metadata is read using the ::AV_DICT_IGNORE_SUFFIX flag
  *
- * @param dst   Pointer to a pointer to a AVDictionary struct to copy into. If *dst is NULL,
+ * @param dst   Pointer to a pointer to an AVDictionary struct to copy into. If *dst is NULL,
  *              this function will allocate a struct for you and put it in *dst
  * @param src   Pointer to the source AVDictionary struct to copy items from.
  * @param flags Flags to use when setting entries in *dst

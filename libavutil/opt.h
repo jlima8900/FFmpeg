@@ -1162,7 +1162,7 @@ void av_opt_freep_ranges(AVOptionRanges **ranges);
  * The returned list may depend on other fields in obj like for example profile.
  *
  * @param flags is a bitmask of flags, undefined flags should not be set and should be ignored
- *              AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance
+ *              AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to an AVClass instead of a full instance
  *              AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component, @see AVOptionRanges
  *
  * The result must be freed with av_opt_freep_ranges.
@@ -1178,7 +1178,7 @@ int av_opt_query_ranges(AVOptionRanges **, void *obj, const char *key, int flags
  * and can be used as fallback from within the callback.
  *
  * @param flags is a bitmask of flags, undefined flags should not be set and should be ignored
- *              AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance
+ *              AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to an AVClass instead of a full instance
  *              AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component, @see AVOptionRanges
  *
  * The result must be freed with av_opt_free_ranges.
