@@ -246,7 +246,7 @@ typedef struct AVHDRVividColorTransformParams {
  * This struct represents dynamic metadata for color volume transform -
  * CUVA 005.1:2021 standard
  *
- * To be used as payload of a AVFrameSideData or AVPacketSideData with the
+ * To be used as payload of an AVFrameSideData or AVPacketSideData with the
  * appropriate type.
  *
  * @note The struct should be allocated with

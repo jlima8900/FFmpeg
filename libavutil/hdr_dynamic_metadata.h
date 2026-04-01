@@ -233,7 +233,7 @@ typedef struct AVHDRPlusColorTransformParams {
  * This struct represents dynamic metadata for color volume transform -
  * application 4 of SMPTE 2094-40:2016 standard.
  *
- * To be used as payload of a AVFrameSideData or AVPacketSideData with the
+ * To be used as payload of an AVFrameSideData or AVPacketSideData with the
  * appropriate type.
  *
  * @note The struct should be allocated with

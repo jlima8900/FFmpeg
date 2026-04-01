@@ -29,7 +29,7 @@
  * Mastering display metadata capable of representing the color volume of
  * the display used to master the content (SMPTE 2086:2014).
  *
- * To be used as payload of a AVFrameSideData or AVPacketSideData with the
+ * To be used as payload of an AVFrameSideData or AVPacketSideData with the
  * appropriate type.
  *
  * @note The struct should be allocated with av_mastering_display_metadata_alloc()
@@ -98,7 +98,7 @@ AVMasteringDisplayMetadata *av_mastering_display_metadata_create_side_data(AVFra
 /**
  * Content light level needed by to transmit HDR over HDMI (CTA-861.3).
  *
- * To be used as payload of a AVFrameSideData or AVPacketSideData with the
+ * To be used as payload of an AVFrameSideData or AVPacketSideData with the
  * appropriate type.
  *
  * @note The struct should be allocated with av_content_light_metadata_alloc()

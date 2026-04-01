@@ -43,7 +43,7 @@ AVDES *av_des_alloc(void);
 /**
  * @brief Initializes an AVDES context.
  *
- * @param d pointer to a AVDES structure to initialize
+ * @param d pointer to an AVDES structure to initialize
  * @param key pointer to the key to use
  * @param key_bits must be 64 or 192
  * @param decrypt 0 for encryption/CBC-MAC, 1 for decryption

@@ -77,7 +77,7 @@ av_container_fifo_alloc(void *opaque,
 AVContainerFifo *av_container_fifo_alloc_avframe(unsigned flags);
 
 /**
- * Free a AVContainerFifo and everything in it.
+ * Free an AVContainerFifo and everything in it.
  */
 void av_container_fifo_free(AVContainerFifo **cf);
 

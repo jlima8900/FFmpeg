@@ -150,7 +150,7 @@ av_tdrdi_get_display(AV3DReferenceDisplaysInfo *tdrdi, unsigned int idx)
 }
 
 /**
- * Allocate a AV3DReferenceDisplaysInfo structure and initialize its fields to default
+ * Allocate an AV3DReferenceDisplaysInfo structure and initialize its fields to default
  * values.
  *
  * @return the newly allocated struct or NULL on failure

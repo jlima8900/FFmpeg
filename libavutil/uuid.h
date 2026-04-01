@@ -100,7 +100,7 @@ int av_uuid_urn_parse(const char *in, AVUUID uu);
 int av_uuid_parse_range(const char *in_start, const char *in_end, AVUUID uu);
 
 /**
- * Serializes a AVUUID into a string representation according to IETF RFC 4122.
+ * Serializes an AVUUID into a string representation according to IETF RFC 4122.
  * The string is lowercase and always 37 characters long, including the
  * terminating NUL character.
  *
