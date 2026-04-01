@@ -20393,7 +20393,7 @@ Specify an expression for positioning the padded QR code top-left corner.  The
 @var{x} expression can reference the value set by the @var{y} expression, and
 vice.
 
-By default @var{x} and @var{y} are set set to @var{0}, meaning that the QR code
+By default @var{x} and @var{y} are set to @var{0}, meaning that the QR code
 is placed in the top left corner of the input.
 
 These expressions are evaluated for each new frame.
