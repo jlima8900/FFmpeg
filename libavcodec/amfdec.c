@@ -565,7 +565,7 @@ static int amf_decode_frame(AVCodecContext *avctx, struct AVFrame *frame)
         // drain is complete
         ctx->drain = 0;
         if(ctx->resolution_changed){
-            // re-initialze decoder
+            // re-initialize decoder
             AMFVariantStruct    size_var = {0};
             AMFVariantStruct    format_var = {0};
             res = ctx->decoder->pVtbl->GetProperty(ctx->decoder, AMF_VIDEO_DECODER_CURRENT_SIZE, &size_var);
