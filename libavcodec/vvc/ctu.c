@@ -1390,13 +1390,13 @@ static void merge_data_regular(VVCLocalContext *lc)
     mvf_to_mi(&mvf, &pu->mi);
 }
 
-static int ciip_flag_decode(VVCLocalContext *lc, const int ciip_avaiable, const int gpm_avaiable, const int is_128)
+static int ciip_flag_decode(VVCLocalContext *lc, const int ciip_available, const int gpm_available, const int is_128)
 {
     const VVCFrameContext *fc   = lc->fc;
     const VVCSPS *sps           = fc->ps.sps;
     const CodingUnit *cu        = lc->cu;
 
-    if (ciip_avaiable && gpm_avaiable)
+    if (ciip_available && gpm_available)
         return ff_vvc_ciip_flag(lc);
     return sps->r->sps_ciip_enabled_flag && !cu->skip_flag &&
             !is_128 && (cu->cb_width * cu->cb_height >= 64);
@@ -1450,20 +1450,20 @@ static void merge_data_block(VVCLocalContext *lc)
     const int cb_width              = cu->cb_width;
     const int cb_height             = cu->cb_height;
     const int is_128                = cb_width == 128 || cb_height == 128;
-    const int ciip_avaiable         = sps->r->sps_ciip_enabled_flag &&
+    const int ciip_available         = sps->r->sps_ciip_enabled_flag &&
         !cu->skip_flag && (cb_width * cb_height >= 64);
-    const int gpm_avaiable          = sps->r->sps_gpm_enabled_flag && IS_B(rsh) &&
+    const int gpm_available          = sps->r->sps_gpm_enabled_flag && IS_B(rsh) &&
         (cb_width >= 8) && (cb_height >=8) &&
         (cb_width < 8 * cb_height) && (cb_height < 8 *cb_width);
 
     int regular_merge_flag = 1;
 
-    if (!is_128 && (ciip_avaiable || gpm_avaiable))
+    if (!is_128 && (ciip_available || gpm_available))
         regular_merge_flag = ff_vvc_regular_merge_flag(lc, cu->skip_flag);
     if (regular_merge_flag) {
         merge_data_regular(lc);
     } else {
-        cu->ciip_flag = ciip_flag_decode(lc, ciip_avaiable, gpm_avaiable, is_128);
+        cu->ciip_flag = ciip_flag_decode(lc, ciip_available, gpm_available, is_128);
         if (cu->ciip_flag)
             merge_data_ciip(lc);
         else
