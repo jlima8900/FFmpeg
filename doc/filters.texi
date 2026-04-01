@@ -16944,7 +16944,7 @@ Deinterlacing is automatically supported when frames are tagged as interlaced,
 however frames are not deinterlaced unless a deinterlacing algorithm is chosen.
 @table @option
 @item deinterlace
-The the deinterlacing algorithm to use.
+The deinterlacing algorithm to use.
 @table @samp
 @item weave
 No deinterlacing, weave fields together into a single frame. This is the default.
