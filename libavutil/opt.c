@@ -1311,7 +1311,7 @@ int av_opt_get_image_size(void *obj, const char *name, int search_flags, int *w_
         return AVERROR_OPTION_NOT_FOUND;
     if (o->type != AV_OPT_TYPE_IMAGE_SIZE) {
         av_log(obj, AV_LOG_ERROR,
-               "The value for option '%s' is not a image size.\n", name);
+               "The value for option '%s' is not an image size.\n", name);
         return AVERROR(EINVAL);
     }
 
