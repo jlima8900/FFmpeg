@@ -53,7 +53,7 @@
 #include "libavcodec/codec_internal.h"
 #include "libavformat/avformat.h"
 
-//For FF_SANE_NB_CHANNELS, so we dont waste energy testing things that will get instantly rejected
+//For FF_SANE_NB_CHANNELS, so we don't waste energy testing things that will get instantly rejected
 #include "libavcodec/internal.h"
 
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size);
