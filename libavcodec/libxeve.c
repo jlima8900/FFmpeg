@@ -165,7 +165,7 @@ static int libxeve_color_space(enum AVPixelFormat av_pix_fmt)
  * The most recent assignments overwrite the previous values.
  *
  * @param[in] avctx codec context (AVCodecContext)
- * @param[out] cdsc contains all Xeve MPEG-5 EVC encoder encoder parameters that should be initialized before the encoder is use
+ * @param[out] cdsc contains all Xeve MPEG-5 EVC encoder parameters that should be initialized before the encoder is used
  *
  * @return 0 on success, negative error code on failure
  */
