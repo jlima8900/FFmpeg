@@ -289,7 +289,7 @@ static const AVFilterPad outputs[] = {
 static const AVOption hsvkey_options[] = {
     { "hue", "set the hue value", OFFSET(hue_opt), AV_OPT_TYPE_FLOAT, { .dbl = 0 }, -360, 360, FLAGS },
     { "sat", "set the saturation value", OFFSET(sat), AV_OPT_TYPE_FLOAT, { .dbl = 0 }, -1, 1, FLAGS },
-    { "val", "set the value value", OFFSET(val), AV_OPT_TYPE_FLOAT, { .dbl = 0 }, -1, 1, FLAGS },
+    { "val", "set the value", OFFSET(val), AV_OPT_TYPE_FLOAT, { .dbl = 0 }, -1, 1, FLAGS },
     { "similarity", "set the hsvkey similarity value", OFFSET(similarity), AV_OPT_TYPE_FLOAT, { .dbl = 0.01}, 0.00001, 1.0, FLAGS },
     { "blend", "set the hsvkey blend value", OFFSET(blend), AV_OPT_TYPE_FLOAT, { .dbl = 0.0 }, 0.0, 1.0, FLAGS },
     { NULL }
@@ -331,7 +331,7 @@ static const enum AVPixelFormat hold_pixel_fmts[] = {
 static const AVOption hsvhold_options[] = {
     { "hue", "set the hue value", OFFSET(hue_opt), AV_OPT_TYPE_FLOAT, { .dbl = 0 }, -360, 360, FLAGS },
     { "sat", "set the saturation value", OFFSET(sat), AV_OPT_TYPE_FLOAT, { .dbl = 0 }, -1, 1, FLAGS },
-    { "val", "set the value value", OFFSET(val), AV_OPT_TYPE_FLOAT, { .dbl = 0 }, -1, 1, FLAGS },
+    { "val", "set the value", OFFSET(val), AV_OPT_TYPE_FLOAT, { .dbl = 0 }, -1, 1, FLAGS },
     { "similarity", "set the hsvhold similarity value", OFFSET(similarity), AV_OPT_TYPE_FLOAT, { .dbl = 0.01 }, 0.00001, 1.0, FLAGS },
     { "blend", "set the hsvhold blend value", OFFSET(blend), AV_OPT_TYPE_FLOAT, { .dbl = 0.0 }, 0.0, 1.0, FLAGS },
     { NULL }
