@@ -1709,7 +1709,7 @@ end:
 }
 
 /**
- * RTC is connectionless, for it's based on UDP, so it check whether sesison is
+ * RTC is connectionless, for it's based on UDP, so it checks whether session is
  * timeout. In such case, publishers can't republish the stream until the session
  * is timeout.
  * This function is called to notify the server that the stream is ended, server
