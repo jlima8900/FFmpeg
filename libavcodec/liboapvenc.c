@@ -43,7 +43,7 @@
 #define MAX_BS_BUF   (128 * 1024 * 1024)
 #define MAX_NUM_FRMS (1)           // supports only 1-frame in an access unit
 #define FRM_IDX      (0)           // supports only 1-frame in an access unit
-#define MAX_NUM_CC   (OAPV_MAX_CC) // Max number of color components (upto 4:4:4:4)
+#define MAX_NUM_CC   (OAPV_MAX_CC) // Max number of color components (up to 4:4:4:4)
 
 /**
  * The structure stores all the states associated with the instance of APV encoder
