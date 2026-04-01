@@ -209,7 +209,7 @@ int main(int argc, char **argv)
     pkt->size = 0;
     decode(c, pkt, decoded_frame, outfile);
 
-    /* print output pcm infomations, because there have no metadata of pcm */
+    /* print output pcm information, because there is no metadata of pcm */
     sfmt = c->sample_fmt;
 
     if (av_sample_fmt_is_planar(sfmt)) {
