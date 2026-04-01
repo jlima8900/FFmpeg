@@ -1002,7 +1002,7 @@ version 2.4:
 - H.261 RTP payload format (RFC 4587) depacketizer and experimental packetizer
 - HEVC/H.265 RTP payload format (draft v6) depacketizer
 - added codecview filter to visualize information exported by some codecs
-- Matroska 3D support thorugh side data
+- Matroska 3D support through side data
 - HTML generation using texi2html is deprecated in favor of makeinfo/texi2any
 - silenceremove filter
 
