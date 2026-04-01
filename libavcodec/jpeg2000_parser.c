@@ -169,7 +169,7 @@ static int find_frame_end(JPEG2000ParserContext *m, const uint8_t *buf, int buf_
                 // Calculate number of bytes to skip to get to end of the next marker.
                 m->skip_bytes = (state64 & 0xFFFF)-1;
 
-                // If the next marker is an info marker, skip to the end of of the marker length.
+                // If the next marker is an info marker, skip to the end of the marker length.
                 if (i + m->skip_bytes + 1 < buf_size) {
                     uint32_t next_state = (buf[i + m->skip_bytes] << 8) | buf[i + m->skip_bytes + 1];
                     if (info_marker(next_state)) {
