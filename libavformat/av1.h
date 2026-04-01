@@ -78,7 +78,7 @@ int ff_av1_filter_obus_buf(const uint8_t *in, uint8_t **out,
                            int *size, int *offset);
 
 /**
- * Parses a Sequence Header from the the provided buffer.
+ * Parses a Sequence Header from the provided buffer.
  *
  * @param seq pointer to the AV1SequenceParameters where the parsed values will
  *            be written
