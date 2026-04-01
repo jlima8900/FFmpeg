@@ -918,7 +918,7 @@ int av_opt_set_dict_val(void *obj, const char *name, const AVDictionary *val, in
  * @param val_type Option type corresponding to the type of val, ignored when val is
  *                 NULL.
  *
- *                 The effect of this function will will be as if av_opt_setX()
+ *                 The effect of this function will be as if av_opt_setX()
  *                 was called for each element, where X is specified by type.
  *                 E.g. AV_OPT_TYPE_STRING corresponds to av_opt_set().
  *
