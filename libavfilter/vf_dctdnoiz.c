@@ -595,7 +595,7 @@ static int config_input(AVFilterLink *inlink)
     }
 
     /* each slice will need to (pre & re)process the top and bottom block of
-     * the previous one in in addition to its processing area. This is because
+     * the previous one in addition to its processing area. This is because
      * each pixel is averaged by all the surrounding blocks */
     slice_h = (int)ceilf(s->pr_height / (float)s->nb_threads) + (s->bsize - 1) * 2;
     for (i = 0; i < s->nb_threads; i++) {
