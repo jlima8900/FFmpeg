@@ -129,7 +129,7 @@ int ff_url_read_all(const char *url, AVBPrint *bp)
     while (1) {
         ret = ffurl_read(uc, buf, sizeof(buf));
         if (ret == AVERROR_EOF) {
-            /* Reset the error because we read all response as answer util EOF. */
+            /* Reset the error because we read all response as answer until EOF. */
             ret = 0;
             break;
         }

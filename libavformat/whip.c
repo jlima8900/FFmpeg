@@ -871,7 +871,7 @@ static int exchange_sdp(AVFormatContext *s)
     while (1) {
         ret = ffurl_read(whip_uc, buf, sizeof(buf));
         if (ret == AVERROR_EOF) {
-            /* Reset the error because we read all response as answer util EOF. */
+            /* Reset the error because we read all response as answer until EOF. */
             ret = 0;
             break;
         }
@@ -1710,7 +1710,7 @@ end:
 
 /**
  * RTC is connectionless, for it's based on UDP, so it check whether sesison is
- * timeout. In such case, publishers can't republish the stream util the session
+ * timeout. In such case, publishers can't republish the stream until the session
  * is timeout.
  * This function is called to notify the server that the stream is ended, server
  * should expire and close the session immediately, so that publishers can republish
