@@ -778,7 +778,7 @@ int ff_filter_frame(AVFilterLink *link, AVFrame *frame);
  * When a filter is unable to output a frame for example due to its sources
  * being unable to do so or because it depends on external means pushing data
  * into it then AVERROR(EAGAIN) is returned.
- * It is important that a AVERROR(EAGAIN) return is returned all the way to the
+ * It is important that an AVERROR(EAGAIN) return is returned all the way to the
  * caller (generally eventually a user application) as this step may (but does
  * not have to be) necessary to provide the input with the next frame.
  *
