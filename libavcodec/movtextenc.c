@@ -400,7 +400,7 @@ static uint8_t mov_text_style_to_flag(const char style)
 static void mov_text_style_set(MovTextContext *s, uint8_t style_flags)
 {
     if (!((s->style_attributes_temp.style_flag & style_flags) ^ style_flags)) {
-        // setting flags that that are already set
+        // setting flags that are already set
         return;
     }
     if (mov_text_style_start(s))
