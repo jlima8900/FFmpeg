@@ -13833,7 +13833,7 @@ Set denoising method. Default is @code{wiener}, can also be @code{hard}.
 Set number of previous frames to use for denoising. By default is set to 0.
 
 @item next
-Set number of next frames to to use for denoising. By default is set to 0.
+Set number of next frames to use for denoising. By default is set to 0.
 
 @item planes
 Set planes which will be filtered, by default are all available filtered
