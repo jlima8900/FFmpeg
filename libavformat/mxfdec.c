@@ -1567,7 +1567,7 @@ static int mxf_read_indirect_value(void *arg, AVIOContext *pb, int size)
     ret = ffio_read_size(pb, key, 17);
     if (ret < 0)
         return ret;
-    /* TODO: handle other types of of indirect values */
+    /* TODO: handle other types of indirect values */
     if (memcmp(key, mxf_indirect_value_utf16le, 17) == 0) {
         return mxf_read_utf16le_string(pb, size - 17, &tagged_value->value);
     } else if (memcmp(key, mxf_indirect_value_utf16be, 17) == 0) {
