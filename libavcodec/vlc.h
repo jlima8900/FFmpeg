@@ -92,7 +92,7 @@ typedef struct VLC_MULTI {
  *                         correspond to valid codes; entries == 0 will be skipped.
  * @param[in] bits_wrap    Stride (in bytes) of the bits table.
  * @param[in] codes_size   Size of the bits. 1, 2 and 4 are supported.
- * @param[in] codes        Table which gives the bit pattern of of each vlc code.
+ * @param[in] codes        Table which gives the bit pattern of each vlc code.
  * @param[in] codes_wrap   Stride (in bytes) of the codes table.
  * @param[in] codes_size   Size of the codes. 1, 2 and 4 are supported.
  * @param[in] symbols      The symbols, i.e. what is returned from get_vlc2()
