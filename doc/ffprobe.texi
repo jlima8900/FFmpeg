@@ -44,7 +44,7 @@ and consists of one or more sections of a form defined by the selected
 writer, which is specified by the @option{output_format} option.
 
 Sections may contain other nested sections, and are identified by a
-name (which may be shared by other sections), and an unique
+name (which may be shared by other sections), and a unique
 name. See the output of @option{sections}.
 
 Metadata tags stored in the container or in the streams are recognized

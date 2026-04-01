@@ -113,7 +113,7 @@ void ff_copy_rectangle2(FFDrawContext *draw,
                         int w, int h);
 
 /**
- * Fill a rectangle with an uniform color.
+ * Fill a rectangle with a uniform color.
  *
  * The coordinates must be as even as the subsampling requires.
  * The color needs to be inited with ff_draw_color.
@@ -123,7 +123,7 @@ void ff_fill_rectangle(FFDrawContext *draw, FFDrawColor *color,
                        int dst_x, int dst_y, int w, int h);
 
 /**
- * Blend a rectangle with an uniform color.
+ * Blend a rectangle with a uniform color.
  */
 void ff_blend_rectangle(FFDrawContext *draw, FFDrawColor *color,
                         uint8_t *dst[], int dst_linesize[],
@@ -131,7 +131,7 @@ void ff_blend_rectangle(FFDrawContext *draw, FFDrawColor *color,
                         int x0, int y0, int w, int h);
 
 /**
- * Blend an alpha mask with an uniform color.
+ * Blend an alpha mask with a uniform color.
  *
  * @param draw           draw context
  * @param color          color for the overlay;

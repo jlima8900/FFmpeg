@@ -92,7 +92,7 @@ have the following pattern:
    macro; the option parser will use that information to fill the fields
    according to the user input
  - type is any of AV_OPT_TYPE_* defined in libavutil/opt.h
- - default value is an union where you pick the appropriate type; "{.dbl=0.3}",
+ - default value is a union where you pick the appropriate type; "{.dbl=0.3}",
    "{.i64=0x234}", "{.str=NULL}", ...
  - min and max values define the range of available values, inclusive
  - flags are AVOption generic flags. See AV_OPT_FLAG_* definitions

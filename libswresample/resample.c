@@ -97,7 +97,7 @@ static int build_filter(ResampleContext *c, void *filter, double factor, int tap
                 norm += y;
         }
 
-        /* normalize so that an uniform color remains the same */
+        /* normalize so that a uniform color remains the same */
         switch(c->format){
         case AV_SAMPLE_FMT_S16P:
             for(i=0;i<tap_count;i++)

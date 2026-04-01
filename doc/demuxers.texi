@@ -195,7 +195,7 @@ Codec for the stream.
 Extradata for the string, encoded in hexadecimal.
 
 @item @code{chapter @var{id} @var{start} @var{end}}
-Add a chapter. @var{id} is an unique identifier, possibly small and
+Add a chapter. @var{id} is a unique identifier, possibly small and
 consecutive.
 
 @end table
