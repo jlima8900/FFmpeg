@@ -4365,7 +4365,7 @@ static void mov_fix_index(MOVContext *mov, AVStream *st)
         // All frames which are outside edit list entry time boundaries will be dropped after decoding.
         search_timestamp = edit_list_media_time;
         if (st->codecpar->codec_type == AVMEDIA_TYPE_AUDIO) {
-            // Audio decoders like AAC need need a decoder delay samples previous to the current sample,
+            // Audio decoders like AAC need a decoder delay samples previous to the current sample,
             // to correctly decode this frame. Hence for audio we seek to a frame 1 sec. before the
             // edit_list_media_time to cover the decoder delay.
             search_timestamp = FFMAX(search_timestamp - msc->time_scale, e_old[0].timestamp);
