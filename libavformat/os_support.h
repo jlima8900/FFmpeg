@@ -192,7 +192,7 @@ static inline int win32_##name(const char *filename_utf8) \
     return ret;                                           \
                                                           \
 fallback:                                                 \
-    /* filename may be be in CP_ACP */                    \
+    /* filename may be in CP_ACP */                       \
     return afunc(filename_utf8);                          \
 }
 
@@ -288,7 +288,7 @@ static inline int win32_rename(const char *src_utf8, const char *dest_utf8)
     return ret;
 
 fallback:
-    /* filename may be be in CP_ACP */
+    /* filename may be in CP_ACP */
 #if !HAVE_UWP
     ret = MoveFileExA(src_utf8, dest_utf8, MOVEFILE_REPLACE_EXISTING);
     if (ret)

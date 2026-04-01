@@ -132,7 +132,7 @@ exit:
     module = LoadPackagedLibrary(name_w, 0);
 #else
 #define LOAD_FLAGS (LOAD_LIBRARY_SEARCH_APPLICATION_DIR | LOAD_LIBRARY_SEARCH_SYSTEM32)
-    /* filename may be be in CP_ACP */
+    /* filename may be in CP_ACP */
     if (!name_w)
         return LoadLibraryExA(name, NULL, LOAD_FLAGS);
     module = LoadLibraryExW(name_w, NULL, LOAD_FLAGS);
