@@ -26,7 +26,7 @@
 #include "mjpegenc_huffman.h"
 
 /**
- * Used to assign a occurrence count or "probability" to an input value
+ * Used to assign an occurrence count or "probability" to an input value
  */
 typedef struct PTable {
     int value;  ///< input value

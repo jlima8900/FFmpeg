@@ -367,7 +367,7 @@ static int rkmpp_retrieve_frame(AVCodecContext *avctx, AVFrame *frame)
             ret = AVERROR(EAGAIN);
             goto fail;
         } else if (mpp_frame_get_eos(mppframe)) {
-            av_log(avctx, AV_LOG_DEBUG, "Received a EOS frame.\n");
+            av_log(avctx, AV_LOG_DEBUG, "Received an EOS frame.\n");
             decoder->eos_reached = 1;
             ret = AVERROR_EOF;
             goto fail;
@@ -376,7 +376,7 @@ static int rkmpp_retrieve_frame(AVCodecContext *avctx, AVFrame *frame)
             ret = AVERROR(EAGAIN);
             goto fail;
         } else if (mpp_frame_get_errinfo(mppframe)) {
-            av_log(avctx, AV_LOG_ERROR, "Received a errinfo frame.\n");
+            av_log(avctx, AV_LOG_ERROR, "Received an errinfo frame.\n");
             ret = AVERROR_UNKNOWN;
             goto fail;
         }

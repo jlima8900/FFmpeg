@@ -937,7 +937,7 @@ static float auto_correlation(float *diff_isf, float mean, int lag)
 }
 
 /**
- * Extrapolate a ISF vector to the 16kHz range (20th order LP)
+ * Extrapolate an ISF vector to the 16kHz range (20th order LP)
  * used at mode 6k60 LP filter for the high frequency band.
  *
  * @param[out] isf Buffer for extrapolated isf; contains LP_ORDER
@@ -1187,7 +1187,7 @@ static int amrwb_decode_frame(AVCodecContext *avctx, AVFrame *frame,
         ctx->isf_cur[LP_ORDER - 1] *= 2.0;
         ff_acelp_lsf2lspd(ctx->isp[3], ctx->isf_cur, LP_ORDER);
 
-        /* Generate a ISP vector for each subframe */
+        /* Generate an ISP vector for each subframe */
         if (ctx->first_frame) {
             ctx->first_frame = 0;
             memcpy(ctx->isp_sub4_past, ctx->isp[3], LP_ORDER * sizeof(double));
