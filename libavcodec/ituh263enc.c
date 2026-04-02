@@ -422,8 +422,6 @@ void ff_clean_h263_qscales(MPVEncContext *const s)
     }
 }
 
-static const int dquant_code[5]= {1,0,9,2,3};
-
 static void flv2_encode_ac_esc(PutBitContext *pb, int slevel, int level,
                                int run, int last)
 {
@@ -645,7 +643,7 @@ static void h263_encode_mb(MPVEncContext *const s,
 
             put_bits(&s->pb, ff_h263_cbpy_tab[cbpy][1], ff_h263_cbpy_tab[cbpy][0]);
             if(s->dquant)
-                put_bits(&s->pb, 2, dquant_code[s->dquant+2]);
+                put_bits(&s->pb, 2, ff_h263_dquant_code[s->dquant + 2]);
 
             if(interleaved_stats){
                 s->misc_bits+= get_bits_diff(s);
@@ -671,7 +669,7 @@ static void h263_encode_mb(MPVEncContext *const s,
                     ff_h263_inter_MCBPC_code[cbpc+16]);
             put_bits(&s->pb, ff_h263_cbpy_tab[cbpy][1], ff_h263_cbpy_tab[cbpy][0]);
             if(s->dquant)
-                put_bits(&s->pb, 2, dquant_code[s->dquant+2]);
+                put_bits(&s->pb, 2, ff_h263_dquant_code[s->dquant + 2]);
 
             if(interleaved_stats){
                 s->misc_bits+= get_bits_diff(s);
@@ -774,7 +772,7 @@ static void h263_encode_mb(MPVEncContext *const s,
         cbpy = cbp >> 2;
         put_bits(&s->pb, ff_h263_cbpy_tab[cbpy][1], ff_h263_cbpy_tab[cbpy][0]);
         if(s->dquant)
-            put_bits(&s->pb, 2, dquant_code[s->dquant+2]);
+            put_bits(&s->pb, 2, ff_h263_dquant_code[s->dquant + 2]);
 
         if(interleaved_stats){
             s->misc_bits+= get_bits_diff(s);

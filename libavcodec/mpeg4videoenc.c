@@ -28,6 +28,7 @@
 #include "codec_internal.h"
 #include "mpegvideo.h"
 #include "h263.h"
+#include "h263data.h"
 #include "h263enc.h"
 #include "mathops.h"
 #include "mpeg4video.h"
@@ -446,9 +447,6 @@ static inline int get_b_cbp(MPVEncContext *const s, int16_t block[6][64],
     return cbp;
 }
 
-// FIXME this is duplicated to h263.c
-static const int dquant_code[5] = { 1, 0, 9, 2, 3 };
-
 static void mpeg4_encode_mb(MPVEncContext *const s, int16_t block[][64],
                             int motion_x, int motion_y)
 {
@@ -675,7 +673,7 @@ static void mpeg4_encode_mb(MPVEncContext *const s, int16_t block[][64],
 
                 put_bits(pb2, ff_h263_cbpy_tab[cbpy][1], ff_h263_cbpy_tab[cbpy][0]);
                 if (s->dquant)
-                    put_bits(pb2, 2, dquant_code[s->dquant + 2]);
+                    put_bits(pb2, 2, ff_h263_dquant_code[s->dquant + 2]);
 
                 if (!s->c.progressive_sequence) {
                     if (cbp)
@@ -702,7 +700,7 @@ static void mpeg4_encode_mb(MPVEncContext *const s, int16_t block[][64],
 
                 put_bits(pb2, ff_h263_cbpy_tab[cbpy][1], ff_h263_cbpy_tab[cbpy][0]);
                 if (s->dquant)
-                    put_bits(pb2, 2, dquant_code[s->dquant + 2]);
+                    put_bits(pb2, 2, ff_h263_dquant_code[s->dquant + 2]);
 
                 av_assert2(!s->c.progressive_sequence);
                 if (cbp)
@@ -808,7 +806,7 @@ static void mpeg4_encode_mb(MPVEncContext *const s, int16_t block[][64],
         cbpy = cbp >> 2;
         put_bits(pb2, ff_h263_cbpy_tab[cbpy][1], ff_h263_cbpy_tab[cbpy][0]);
         if (s->dquant)
-            put_bits(dc_pb, 2, dquant_code[s->dquant + 2]);
+            put_bits(dc_pb, 2, ff_h263_dquant_code[s->dquant + 2]);
 
         if (!s->c.progressive_sequence)
             put_bits(dc_pb, 1, s->c.interlaced_dct);

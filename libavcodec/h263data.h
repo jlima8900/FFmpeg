@@ -74,6 +74,8 @@ extern const uint8_t ff_modified_quant_tab[2][32];
 
 extern const uint8_t ff_h263_chroma_qscale_table[32];
 
+extern const int ff_h263_dquant_code[5];
+
 extern const uint16_t ff_mba_max[6];
 extern const uint8_t ff_mba_length[7];
 
