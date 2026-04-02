@@ -114,7 +114,7 @@ static int parse_nal_unit(AVBSFContext *bsf, const uint8_t *buf, int buf_size)
             return err;
         }
         break;
-    case EVC_IDR_NUT:   // Coded slice of a IDR or non-IDR picture
+    case EVC_IDR_NUT:   // Coded slice of an IDR or non-IDR picture
     case EVC_NOIDR_NUT: {
         EVCParserSliceHeader sh;
 

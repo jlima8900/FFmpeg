@@ -110,7 +110,7 @@ static int parse_nal_unit(AVCodecParserContext *s, AVCodecContext *avctx,
             return ret;
         }
         break;
-    case EVC_IDR_NUT:   // Coded slice of a IDR or non-IDR picture
+    case EVC_IDR_NUT:   // Coded slice of an IDR or non-IDR picture
     case EVC_NOIDR_NUT: {
         const EVCParserPPS *pps;
         const EVCParserSPS *sps;
