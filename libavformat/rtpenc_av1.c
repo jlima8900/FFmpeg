@@ -88,7 +88,7 @@ void ff_rtp_send_av1(AVFormatContext *ctx, const uint8_t *frame_buf, int frame_s
 #if RTPENC_AV1_SEARCH_SEQ_HEADER
         /* search for OBU_SEQUENCE_HEADER to get a better indication that
          * the frame was marked as keyframe is really a KEY_FRAME and not
-         * a INTRA_ONLY frame. This might be unnecessary if the AV1 parser/
+         * an INTRA_ONLY frame. This might be unnecessary if the AV1 parser/
          * encoder always correctly specifies AV_PKT_FLAG_KEY.
          *
          * Note: Spec does NOT prohibit resending bit-identical
