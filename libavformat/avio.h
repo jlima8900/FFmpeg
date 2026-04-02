@@ -753,7 +753,7 @@ const char *avio_enum_protocols(void **opaque, int output);
 /**
  * Get AVClass by names of available protocols.
  *
- * @return A AVClass of input protocol name or NULL
+ * @return An AVClass of input protocol name or NULL
  */
 const AVClass *avio_protocol_get_class(const char *name);
 
