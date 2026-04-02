@@ -258,14 +258,12 @@ static int escape124_decode_frame(AVCodecContext *avctx, AVFrame *frame,
                     cb_size = 1 << cb_depth;
                 } else {
                     // This codebook varies per superblock
-                    // FIXME: I don't think this handles integer overflow
-                    // properly
+                    if (s->num_superblocks >= INT_MAX >> cb_depth) {
+                        av_log(avctx, AV_LOG_ERROR, "Depth or num_superblocks are too large\n");
+                        return AVERROR_INVALIDDATA;
+                    }
                     cb_size = s->num_superblocks << cb_depth;
                 }
-            }
-            if (s->num_superblocks >= INT_MAX >> cb_depth) {
-                av_log(avctx, AV_LOG_ERROR, "Depth or num_superblocks are too large\n");
-                return AVERROR_INVALIDDATA;
             }
 
             av_freep(&s->codebooks[i].blocks);
