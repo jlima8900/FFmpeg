@@ -239,7 +239,7 @@ enum AVPixelFormat {
      * mfxHDLPair.second is always MFX_INFINITE.
      *
      * D3D11:
-     * mfxHDLPair.first contains a ID3D11Texture2D pointer.
+     * mfxHDLPair.first contains an ID3D11Texture2D pointer.
      * mfxHDLPair.second contains the texture array index of the frame if the
      * ID3D11Texture2D is an array texture, or always MFX_INFINITE if it is a
      * normal texture.
@@ -251,7 +251,7 @@ enum AVPixelFormat {
      */
     AV_PIX_FMT_MMAL,
 
-    AV_PIX_FMT_D3D11VA_VLD,  ///< HW decoding through Direct3D11 via old API, Picture.data[3] contains a ID3D11VideoDecoderOutputView pointer
+    AV_PIX_FMT_D3D11VA_VLD,  ///< HW decoding through Direct3D11 via old API, Picture.data[3] contains an ID3D11VideoDecoderOutputView pointer
 
     /**
      * HW acceleration through CUDA. data[i] contain CUdeviceptr pointers
@@ -329,7 +329,7 @@ enum AVPixelFormat {
      * This is preferred over the legacy AV_PIX_FMT_D3D11VA_VLD. The new D3D11
      * hwaccel API and filtering support AV_PIX_FMT_D3D11 only.
      *
-     * data[0] contains a ID3D11Texture2D pointer, and data[1] contains the
+     * data[0] contains an ID3D11Texture2D pointer, and data[1] contains the
      * texture array index of the frame as intptr_t if the ID3D11Texture2D is
      * an array texture (or always 0 if it's a normal texture).
      */

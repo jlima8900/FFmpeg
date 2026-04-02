@@ -472,7 +472,7 @@ static void list_append(ID3v2ExtraMeta *new_elem, ExtraMetaList *list)
 }
 
 /**
- * Parse GEOB tag into a ID3v2ExtraMetaGEOB struct.
+ * Parse GEOB tag into an ID3v2ExtraMetaGEOB struct.
  */
 static void read_geobtag(AVFormatContext *s, AVIOContext *pb, int taglen,
                          const char *tag, ExtraMetaList *extra_meta, int isv34)

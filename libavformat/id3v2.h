@@ -159,7 +159,7 @@ int ff_id3v2_write_simple(struct AVFormatContext *s, int id3v2_version, const ch
 
 /**
  * Free memory allocated parsing special (non-text) metadata.
- * @param extra_meta Pointer to a pointer to the head of a ID3v2ExtraMeta list, *extra_meta is set to NULL.
+ * @param extra_meta Pointer to a pointer to the head of an ID3v2ExtraMeta list, *extra_meta is set to NULL.
  */
 void ff_id3v2_free_extra_meta(ID3v2ExtraMeta **extra_meta);
 
