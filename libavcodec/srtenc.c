@@ -197,7 +197,7 @@ static void srt_cancel_overrides_cb(void *priv, const char *style)
 static void srt_move_cb(void *priv, int x1, int y1, int x2, int y2,
                         int t1, int t2)
 {
-    // TODO: add a AV_PKT_DATA_SUBTITLE_POSITION side data when a new subtitles
+    // TODO: add an AV_PKT_DATA_SUBTITLE_POSITION side data when a new subtitles
     // encoding API passing the AVPacket is available.
 }
 

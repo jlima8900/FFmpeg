@@ -831,7 +831,7 @@ static int decode_mb_b(AVSContext *h, enum cavs_mb mb_type)
                 if (!h->col_type_base[h->mbidx]) {
                     /* intra MB at co-location, do in-plane prediction */
                     if(flags==0) {
-                        // if col-MB is a Intra MB, current Block size is 16x16.
+                        // if col-MB is an Intra MB, current Block size is 16x16.
                         // AVS standard section 9.9.1
                         if(block>0){
                             h->mv[TMP_UNUSED_INX              ] = h->mv[MV_FWD_X0              ];

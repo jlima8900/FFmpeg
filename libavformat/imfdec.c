@@ -174,7 +174,7 @@ static int imf_time_to_ts(int64_t *ts, AVRational t, AVRational time_base)
 }
 
 /**
- * Parse a ASSETMAP XML file to extract the UUID-URI mapping of assets.
+ * Parse an ASSETMAP XML file to extract the UUID-URI mapping of assets.
  * @param s the current format context, if any (can be NULL).
  * @param doc the XML document to be parsed.
  * @param asset_map pointer on the IMFAssetLocatorMap to fill.
