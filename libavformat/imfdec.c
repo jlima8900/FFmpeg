@@ -283,7 +283,7 @@ static void imf_asset_locator_map_init(IMFAssetLocatorMap *asset_map)
 }
 
 /**
- * Free a IMFAssetLocatorMap pointer.
+ * Free an IMFAssetLocatorMap pointer.
  */
 static void imf_asset_locator_map_deinit(IMFAssetLocatorMap *asset_map)
 {
