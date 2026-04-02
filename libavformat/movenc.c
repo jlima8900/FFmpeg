@@ -6847,7 +6847,7 @@ int ff_mov_write_packet(AVFormatContext *s, AVPacket *pkt)
             samples_in_chunk++;
         }
         if (samples_in_chunk > 1) {
-            av_log(s, AV_LOG_ERROR, "fatal error, input is not a single packet, implement a AVParser for it\n");
+            av_log(s, AV_LOG_ERROR, "fatal error, input is not a single packet, implement an AVParser for it\n");
             return -1;
         }
     } else if (par->codec_id == AV_CODEC_ID_ADPCM_MS ||
