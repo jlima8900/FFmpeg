@@ -16517,7 +16517,7 @@ Enables all possible corrections.
 @end table
 @item focal_length
 The focal length of the image/video (zoom; expected constant for video). For
-example, a 18--55mm lens has focal length range of [18--55], so a value in that
+example, an 18--55mm lens has focal length range of [18--55], so a value in that
 range should be chosen when using that lens. Default 18.
 
 @item aperture

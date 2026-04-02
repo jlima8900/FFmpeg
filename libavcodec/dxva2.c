@@ -54,7 +54,7 @@ DEFINE_GUID(ff_IID_IDirectXVideoDecoderService, 0xfc51a551,0xd5e7,0x11d9,0xaf,0x
 typedef struct dxva_mode {
     const GUID     *guid;
     enum AVCodecID codec;
-    // List of supported profiles, terminated by a AV_PROFILE_UNKNOWN entry.
+    // List of supported profiles, terminated by an AV_PROFILE_UNKNOWN entry.
     // If NULL, don't check profile.
     const int      *profiles;
 } dxva_mode;

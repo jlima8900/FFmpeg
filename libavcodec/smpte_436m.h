@@ -158,8 +158,8 @@ int av_smpte_436m_anc_append(struct AVPacket *pkt, int anc_packet_count, const A
 
 /**
  * Set up iteration over the ANC packets in a single AV_CODEC_ID_SMPTE_436M_ANC AVPacket's data.
- * @param[in]  buf      Pointer to the data from a AV_CODEC_ID_SMPTE_436M_ANC AVPacket.
- * @param[in]  buf_size Size of the data from a AV_CODEC_ID_SMPTE_436M_ANC AVPacket.
+ * @param[in]  buf      Pointer to the data from an AV_CODEC_ID_SMPTE_436M_ANC AVPacket.
+ * @param[in]  buf_size Size of the data from an AV_CODEC_ID_SMPTE_436M_ANC AVPacket.
  * @param[out] iter     Pointer to the iterator.
  * @return 0 on success, AVERROR codes otherwise.
  */
