@@ -798,7 +798,7 @@ static void synthesis(AMRWBContext *ctx, float *lpc, float *excitation,
         float energy = ctx->celpm_ctx.dot_productf(excitation, excitation,
                                                     AMRWB_SFR_SIZE);
 
-        // XXX: Weird part in both ref code and spec. A unknown parameter
+        // XXX: Weird part in both ref code and spec. An unknown parameter
         // {beta} seems to be identical to the current pitch gain
         float pitch_factor = 0.25 * ctx->pitch_gain[0] * ctx->pitch_gain[0];
 
