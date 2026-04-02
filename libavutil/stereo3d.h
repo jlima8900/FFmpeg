@@ -274,7 +274,7 @@ AVStereo3D *av_stereo3d_create_side_data(AVFrame *frame);
 const char *av_stereo3d_type_name(unsigned int type);
 
 /**
- * Get the AVStereo3DType form a human-readable name.
+ * Get the AVStereo3DType from a human-readable name.
  *
  * @param name The input string.
  *
@@ -292,7 +292,7 @@ int av_stereo3d_from_name(const char *name);
 const char *av_stereo3d_view_name(unsigned int view);
 
 /**
- * Get the AVStereo3DView form a human-readable name.
+ * Get the AVStereo3DView from a human-readable name.
  *
  * @param name The input string.
  *
@@ -310,7 +310,7 @@ int av_stereo3d_view_from_name(const char *name);
 const char *av_stereo3d_primary_eye_name(unsigned int eye);
 
 /**
- * Get the AVStereo3DPrimaryEye form a human-readable name.
+ * Get the AVStereo3DPrimaryEye from a human-readable name.
  *
  * @param name The input string.
  *

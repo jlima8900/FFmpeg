@@ -235,7 +235,7 @@ void av_spherical_tile_bounds(const AVSphericalMapping *map,
 const char *av_spherical_projection_name(enum AVSphericalProjection projection);
 
 /**
- * Get the AVSphericalProjection form a human-readable name.
+ * Get the AVSphericalProjection from a human-readable name.
  *
  * @param name The input string.
  *
