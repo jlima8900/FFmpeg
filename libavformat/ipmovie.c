@@ -526,7 +526,7 @@ static int process_ipmovie_chunk(IPMVEContext *s, AVIOContext *pb,
             j = 4;  /* offset of first palette data */
             for (i = first_color; i <= last_color; i++) {
                 /* the palette is stored as a 6-bit VGA palette, thus each
-                 * component is shifted up to a 8-bit range */
+                 * component is shifted up to an 8-bit range */
                 r = scratch[j++] * 4;
                 g = scratch[j++] * 4;
                 b = scratch[j++] * 4;
