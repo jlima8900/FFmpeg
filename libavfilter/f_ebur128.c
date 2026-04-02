@@ -101,7 +101,7 @@ typedef struct EBUR128Context {
     struct rect graph;              ///< rectangle for the main graph in the center
     struct rect gauge;              ///< rectangle for the gauge on the right
     AVFrame *outpicref;             ///< output picture reference, updated regularly
-    int meter;                      ///< select a EBU mode between +9 and +18
+    int meter;                      ///< select an EBU mode between +9 and +18
     int scale_range;                ///< the range of LU values according to the meter
     int y_zero_lu;                  ///< the y value (pixel position) for 0 LU
     int y_opt_max;                  ///< the y value (pixel position) for 1 LU

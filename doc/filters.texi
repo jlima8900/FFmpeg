@@ -31853,7 +31853,7 @@ Read-only exported value for measured true peak, in dBFS.
 
 @itemize
 @item
-Real-time graph using @command{ffplay}, with a EBU scale meter +18:
+Real-time graph using @command{ffplay}, with an EBU scale meter +18:
 @example
 ffplay -f lavfi -i "amovie=input.mp3,ebur128=video=1:meter=18 [out0][out1]"
 @end example
