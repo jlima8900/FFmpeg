@@ -1130,8 +1130,8 @@ static void decode_sb(VP9TileData *td, int row, int col, VP9Filter *lflvl,
     if (bl == BL_8X8) {
         bp = vp89_rac_get_tree(td->c, ff_vp9_partition_tree, p);
         ff_vp9_decode_block(td, row, col, lflvl, yoff, uvoff, bl, bp);
-    } else if (col + hbs < s->cols) { // FIXME why not <=?
-        if (row + hbs < s->rows) { // FIXME why not <=?
+    } else if (col + hbs < s->cols) { // < matches libvpx has_cols check
+        if (row + hbs < s->rows) { // < matches libvpx has_rows check
             bp = vp89_rac_get_tree(td->c, ff_vp9_partition_tree, p);
             switch (bp) {
             case PARTITION_NONE:
@@ -1175,7 +1175,7 @@ static void decode_sb(VP9TileData *td, int row, int col, VP9Filter *lflvl,
             bp = PARTITION_H;
             ff_vp9_decode_block(td, row, col, lflvl, yoff, uvoff, bl, bp);
         }
-    } else if (row + hbs < s->rows) { // FIXME why not <=?
+    } else if (row + hbs < s->rows) { // < matches libvpx has_rows check
         if (vpx_rac_get_prob_branchy(td->c, p[2])) {
             bp = PARTITION_SPLIT;
             decode_sb(td, row, col, lflvl, yoff, uvoff, bl + 1);
