@@ -33,7 +33,7 @@
 
 /**
  * Average and put pixel
- * Widths can be 16, 8, 4 or 2. For for widths 2 and 4, h is always a positive
+ * Widths can be 16, 8, 4 or 2. For widths 2 and 4, h is always a positive
  * multiple of 2; otherwise, it is a positive multiple of 4.
  */
 typedef void (*op_pixels_func)(uint8_t *block /* align width */,
