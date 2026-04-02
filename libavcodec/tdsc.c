@@ -320,7 +320,7 @@ static inline void tdsc_yuv2rgb(uint8_t *out, int Y, int U, int V)
     out[2] = av_clip_uint8(Y + (116130 * U             + 32768 >> 16));
 }
 
-/* Convert a YUV420 buffer to a RGB buffer. */
+/* Convert a YUV420 buffer to an RGB buffer. */
 static av_always_inline void tdsc_blit(uint8_t *dst, int dst_stride,
                                        const uint8_t *srcy, int srcy_stride,
                                        const uint8_t *srcu, const uint8_t *srcv,
