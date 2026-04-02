@@ -32,14 +32,21 @@ int ff_qp_table_extract(AVFrame *frame, int8_t **table, int *table_w, int *table
                         enum AVVideoEncParamsType *qscale_type);
 
 /**
- * Normalize the qscale factor
- * FIXME Add support for other values of enum AVVideoEncParamsType
- * besides AV_VIDEO_ENC_PARAMS_MPEG2.
+ * Normalize the qscale factor to a common 0-31 range for use by
+ * post-processing filters.
  */
 static inline int ff_norm_qscale(int qscale, enum AVVideoEncParamsType type)
 {
     switch (type) {
-    case AV_VIDEO_ENC_PARAMS_MPEG2: return qscale >> 1;
+    case AV_VIDEO_ENC_PARAMS_MPEG2:
+        /* MPEG-2 stores qscale*2 (0-62), divide by 2 to get 0-31 */
+        return qscale >> 1;
+    case AV_VIDEO_ENC_PARAMS_H264:
+        /* H.264 QP is 0-51, scale to 0-31 range */
+        return (qscale * 31 + 25) / 51;
+    case AV_VIDEO_ENC_PARAMS_VP9:
+        /* VP9 QP is 0-255, scale to 0-31 range */
+        return (qscale * 31 + 127) / 255;
     }
     return qscale;
 }
