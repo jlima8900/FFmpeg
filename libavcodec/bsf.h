@@ -165,7 +165,7 @@ int av_bsf_alloc(const AVBitStreamFilter *filter, AVBSFContext **ctx);
  * Prepare the filter for use, after all the parameters and options have been
  * set.
  *
- * @param ctx a AVBSFContext previously allocated with av_bsf_alloc()
+ * @param ctx an AVBSFContext previously allocated with av_bsf_alloc()
  */
 int av_bsf_init(AVBSFContext *ctx);
 
