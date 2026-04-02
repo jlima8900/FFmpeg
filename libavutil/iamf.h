@@ -455,7 +455,7 @@ typedef struct AVIAMFSubmixElement {
     unsigned int audio_element_id;
 
     /**
-     * Information required required for applying any processing to the
+     * Information required for applying any processing to the
      * referenced and rendered Audio Element before being summed with other
      * processed Audio Elements.
      * The @ref AVIAMFParamDefinition.type "type" must be
