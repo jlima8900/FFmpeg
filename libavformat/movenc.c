@@ -709,6 +709,39 @@ static unsigned compute_avg_bitrate(MOVTrack *track)
     return size * 8 * track->timescale / track->track_duration;
 }
 
+/**
+ * Compute the maximum bitrate over any 1-second window.
+ * Uses a sliding window approach for O(n) complexity.
+ */
+static unsigned compute_max_bitrate_1sec(MOVTrack *track)
+{
+    uint64_t max_bits = 0;
+    uint64_t window_bits = 0;
+    int left = 0;
+    int i;
+
+    if (!track->entry || !track->timescale)
+        return 0;
+
+    for (i = 0; i < track->entry; i++) {
+        /* Add current frame to window */
+        window_bits += (uint64_t)track->cluster[i].size * 8;
+
+        /* Remove frames that are more than 1 second before current frame */
+        while (left < i &&
+               track->cluster[i].dts - track->cluster[left].dts >= (int64_t)track->timescale) {
+            window_bits -= (uint64_t)track->cluster[left].size * 8;
+            left++;
+        }
+
+        if (window_bits > max_bits)
+            max_bits = window_bits;
+    }
+
+    /* max_bits is the maximum bits in any 1-second window = max bits/second */
+    return max_bits > UINT32_MAX ? UINT32_MAX : (unsigned)max_bits;
+}
+
 struct mpeg4_bit_rate_values {
     uint32_t buffer_size;  ///< Size of the decoding buffer for the elementary stream in bytes.
     uint32_t max_bit_rate; ///< Maximum rate in bits/second over any window of one second.
@@ -743,9 +776,13 @@ static struct mpeg4_bit_rate_values calculate_mpeg4_bit_rates(MOVTrack *track)
         }
     }
 
-    // (FIXME should be max rate in any 1 sec window)
-    bit_rates.max_bit_rate = FFMAX(track->par->bit_rate,
-                                   bit_rates.avg_bit_rate);
+    // Compute max rate in any 1 second window
+    bit_rates.max_bit_rate = compute_max_bitrate_1sec(track);
+    if (!bit_rates.max_bit_rate) {
+        // Fall back to estimate if no frame data available (e.g., fragmented MP4)
+        bit_rates.max_bit_rate = FFMAX(track->par->bit_rate,
+                                       bit_rates.avg_bit_rate);
+    }
 
     // utilize values from properties if we have them available
     if (props) {
