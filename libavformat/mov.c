@@ -6435,7 +6435,7 @@ static int mov_read_vpcc(MOVContext *c, AVIOContext *pb, MOVAtom atom)
     color_primaries = avio_r8(pb);
     color_trc       = avio_r8(pb);
     color_space     = avio_r8(pb);
-    if (avio_rb16(pb)) /* codecIntializationDataSize */
+    if (avio_rb16(pb)) /* codecInitializationDataSize */
         return AVERROR_INVALIDDATA;
 
     if (!av_color_primaries_name(color_primaries))
