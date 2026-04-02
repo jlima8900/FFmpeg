@@ -368,7 +368,6 @@ static void select_frame(AVFilterContext *ctx, AVFrame *frame)
         if (select->do_scene_detect) {
             char buf[32];
             select->var_values[VAR_SCENE] = get_scene_score(ctx, frame);
-            // TODO: document metadata
             snprintf(buf, sizeof(buf), "%f", select->var_values[VAR_SCENE]);
             av_dict_set(&frame->metadata, "lavfi.scene_score", buf, 0);
         }

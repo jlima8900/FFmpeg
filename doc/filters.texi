@@ -32266,7 +32266,9 @@ is not available (e.g. for synthetic video); deprecated, do not use
 @item scene @emph{(video only)}
 value between 0 and 1 to indicate a new scene; a low value reflects a low
 probability for the current frame to introduce a new scene, while a higher
-value means the current frame is more likely to be one (see the example below)
+value means the current frame is more likely to be one (see the example below).
+When this variable is accessed, the filter also sets frame metadata
+@code{lavfi.scene_score} with the same value
 
 @item concatdec_select
 The concat demuxer can select only part of a concat input file by setting an
