@@ -127,7 +127,7 @@ typedef struct AVSmpte436mCodedAnc {
 } AVSmpte436mCodedAnc;
 
 /**
- * Validate a AVSmpte436mCodedAnc structure. Doesn't check if the payload is valid.
+ * Validate an AVSmpte436mCodedAnc structure. Doesn't check if the payload is valid.
  * @param[in]  anc ANC packet to validate
  * @return 0 on success, AVERROR codes otherwise.
  */
@@ -174,7 +174,7 @@ int av_smpte_436m_anc_iter_init(AVSmpte436mAncIterator *iter, const uint8_t *buf
 int av_smpte_436m_anc_iter_next(AVSmpte436mAncIterator *iter, AVSmpte436mCodedAnc *anc);
 
 /**
- * Get the minimum number of bytes needed to store a AVSmpte436mCodedAnc payload.
+ * Get the minimum number of bytes needed to store an AVSmpte436mCodedAnc payload.
  * @param sample_coding the payload sample coding
  * @param sample_count  the number of samples stored in the payload
  * @return returns the minimum number of bytes needed, on error returns < 0.
@@ -183,7 +183,7 @@ int av_smpte_436m_anc_iter_next(AVSmpte436mAncIterator *iter, AVSmpte436mCodedAn
 int av_smpte_436m_coded_anc_payload_size(AVSmpte436mPayloadSampleCoding sample_coding, uint16_t sample_count);
 
 /**
- * Decode a AVSmpte436mCodedAnc payload into AVSmpte291mAnc8bit
+ * Decode an AVSmpte436mCodedAnc payload into AVSmpte291mAnc8bit
  * @param[in]  sample_coding the payload sample coding
  * @param[in]  sample_count  the number of samples stored in the payload
  * @param[in]  payload       the bytes storing the payload,
@@ -200,13 +200,13 @@ int av_smpte_291m_anc_8bit_decode(AVSmpte291mAnc8bit            *out,
                                   void                          *log_ctx);
 
 /**
- * Fill in the correct checksum for a AVSmpte291mAnc8bit
+ * Fill in the correct checksum for an AVSmpte291mAnc8bit
  * @param[in,out] anc The ANC packet.
  */
 void av_smpte_291m_anc_8bit_fill_checksum(AVSmpte291mAnc8bit *anc);
 
 /**
- * Compute the sample count needed to encode a AVSmpte291mAnc8bit into a AVSmpte436mCodedAnc payload
+ * Compute the sample count needed to encode an AVSmpte291mAnc8bit into an AVSmpte436mCodedAnc payload
  * @param[in] anc           The ANC packet.
  * @param[in] sample_coding The sample coding.
  * @param[in] log_ctx       context pointer for av_log
@@ -217,7 +217,7 @@ int av_smpte_291m_anc_8bit_get_sample_count(const AVSmpte291mAnc8bit      *anc,
                                             void                          *log_ctx);
 
 /**
- * Encode a AVSmpte291mAnc8bit into a AVSmpte436mCodedAnc
+ * Encode an AVSmpte291mAnc8bit into an AVSmpte436mCodedAnc
  * @param[in]  line_number   the line number the ANC packet is on
  * @param[in]  wrapping_type the wrapping type
  * @param[in]  sample_coding the payload sample coding
