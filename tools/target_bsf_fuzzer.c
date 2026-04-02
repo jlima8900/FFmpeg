@@ -117,7 +117,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     res = av_bsf_init(bsf);
     if (res < 0) {
         av_bsf_free(&bsf);
-        return 0; // Failure of av_bsf_init() does not imply that a issue was found
+        return 0; // Failure of av_bsf_init() does not imply that an issue was found
     }
 
     pkt = av_packet_alloc();

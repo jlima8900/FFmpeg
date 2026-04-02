@@ -159,7 +159,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     if (res < 0) {
         avcodec_free_context(&ctx);
         av_dict_free(&opts);
-        return 0; // Failure of avcodec_open2() does not imply that a issue was found
+        return 0; // Failure of avcodec_open2() does not imply that an issue was found
     }
 
 
