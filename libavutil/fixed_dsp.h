@@ -154,7 +154,7 @@ typedef struct AVFixedDSPContext {
 
 /**
  * Allocate and initialize a fixed DSP context.
- * note: should be freed with a av_free call when no longer needed.
+ * note: should be freed with an av_free call when no longer needed.
  *
  * @param strict  setting to non-zero avoids using functions which may not be IEEE-754 compliant
  */
