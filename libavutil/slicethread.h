@@ -28,7 +28,7 @@ typedef struct AVSliceThread AVSliceThread;
  * @param worker_func callback function to be executed
  * @param main_func special callback function, called from main thread, may be NULL
  * @param nb_threads number of threads, 0 for automatic, must be >= 0
- * @return return number of threads or negative AVERROR on failure
+ * @return number of threads or negative AVERROR on failure
  */
 int avpriv_slicethread_create(AVSliceThread **pctx, void *priv,
                               void (*worker_func)(void *priv, int jobnr, int threadnr, int nb_jobs, int nb_threads),
