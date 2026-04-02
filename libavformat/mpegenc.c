@@ -362,7 +362,7 @@ static av_cold int mpeg_mux_init(AVFormatContext *ctx)
                  av_log(ctx, AV_LOG_WARNING,
                         "%s in MPEG-1 system streams is not widely supported, "
                         "consider using the vob or the dvd muxer "
-                        "to force a MPEG-2 program stream.\n",
+                        "to force an MPEG-2 program stream.\n",
                         avcodec_get_name(st->codecpar->codec_id));
             if (st->codecpar->codec_id == AV_CODEC_ID_AC3) {
                 stream->id = ac3_id++;
