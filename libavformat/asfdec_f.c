@@ -79,7 +79,7 @@ typedef struct ASFContext {
     uint32_t stream_bitrates[128];       ///< max number of streams, bitrate for each (for streaming)
     AVRational dar[128];
     char stream_languages[128][6];       ///< max number of streams, language for each (RFC1766, e.g. en-US)
-    /* non streamed additonnal info */
+    /* non streamed additional info */
     /* packet filling */
     int packet_size_left;
     /* only for reading */
