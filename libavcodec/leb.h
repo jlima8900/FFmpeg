@@ -27,7 +27,7 @@
 #include "get_bits.h"
 
 /**
- * Read a unsigned integer coded as a variable number of up to eight
+ * Read an unsigned integer coded as a variable number of up to eight
  * little-endian bytes, where the MSB in a byte signals another byte
  * must be read.
  * All coded bits are read, but values > UINT_MAX are truncated.
@@ -50,7 +50,7 @@ static inline unsigned get_leb(GetBitContext *s) {
 }
 
 /**
- * Read a unsigned integer coded as a variable number of up to eight
+ * Read an unsigned integer coded as a variable number of up to eight
  * little-endian bytes, where the MSB in a byte signals another byte
  * must be read.
  */

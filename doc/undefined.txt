@@ -19,7 +19,7 @@ In these cases, often the output of the computation does not matter (as it is
 from invalid input).
 In some cases the input can be checked easily in others checking the input is
 computationally too intensive.
-In these remaining cases a unsigned type can be used instead of a signed type.
+In these remaining cases an unsigned type can be used instead of a signed type.
 unsigned overflows are defined in C.
 
 SUINT
