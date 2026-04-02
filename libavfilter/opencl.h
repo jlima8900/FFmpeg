@@ -276,7 +276,7 @@ int ff_opencl_filter_load_program_from_file(AVFilterContext *avctx,
                                             const char *filename);
 
 /**
- * Find the work size needed needed for a given plane of an image.
+ * Find the work size needed for a given plane of an image.
  */
 int ff_opencl_filter_work_size_from_image(AVFilterContext *avctx,
                                           size_t *work_size,
