@@ -547,7 +547,7 @@ static void uninit_com_mf(MFFunctions *f)
     CoUninitialize();
 }
 
-// Find and create a IMFTransform with the given input/output types. When done,
+// Find and create an IMFTransform with the given input/output types. When done,
 // you should use ff_free_mf() to destroy it, which will also uninit COM.
 int ff_instantiate_mf(void *log,
                       MFFunctions *f,
