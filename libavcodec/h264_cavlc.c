@@ -829,7 +829,7 @@ decode_intra_mb:
                 sl->ref_cache[1][scan8[12]] = PART_NOT_AVAILABLE;
             }
         }else{
-            av_assert2(sl->slice_type_nos == AV_PICTURE_TYPE_P); //FIXME SP correct ?
+            av_assert2(sl->slice_type_nos == AV_PICTURE_TYPE_P); // SP remapped to P via slice_type_nos
             for(i=0; i<4; i++){
                 sl->sub_mb_type[i]= get_ue_golomb_31(&sl->gb);
                 if(sl->sub_mb_type[i] >=4){
