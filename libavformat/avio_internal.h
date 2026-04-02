@@ -223,7 +223,7 @@ int ffio_open_dyn_packet_buf(AVIOContext **s, int max_packet_size);
 struct URLContext *ffio_geturlcontext(AVIOContext *s);
 
 /**
- * Create and initialize a AVIOContext for accessing the
+ * Create and initialize an AVIOContext for accessing the
  * resource referenced by the URLContext h.
  * @note When the URLContext h has been opened in read+write mode, the
  * AVIOContext can be used only for writing.

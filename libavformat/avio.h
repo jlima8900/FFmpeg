@@ -644,7 +644,7 @@ int avio_get_str16be(AVIOContext *pb, int maxlen, char *buf, int buflen);
 #define AVIO_FLAG_DIRECT 0x8000
 
 /**
- * Create and initialize a AVIOContext for accessing the
+ * Create and initialize an AVIOContext for accessing the
  * resource indicated by url.
  * @note When the resource indicated by url has been opened in
  * read+write mode, the AVIOContext can be used only for writing.
@@ -660,7 +660,7 @@ int avio_get_str16be(AVIOContext *pb, int maxlen, char *buf, int buflen);
 int avio_open(AVIOContext **s, const char *url, int flags);
 
 /**
- * Create and initialize a AVIOContext for accessing the
+ * Create and initialize an AVIOContext for accessing the
  * resource indicated by url.
  * @note When the resource indicated by url has been opened in
  * read+write mode, the AVIOContext can be used only for writing.
