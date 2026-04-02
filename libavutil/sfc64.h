@@ -23,10 +23,10 @@
  * @file
  * simple Pseudo Random Number Generator
  *
- * This is a implementation of SFC64, a 64-bit PRNG by Chris Doty-Humphrey.
+ * This is an implementation of SFC64, a 64-bit PRNG by Chris Doty-Humphrey.
  *
  * This Generator is much faster (0m1.872s) than 64bit KISS (0m3.823s) and PCG-XSH-RR-64/32 (0m2.700s)
- * And passes testu01 and practrand test suits.
+ * and passes testu01 and practrand test suites.
  */
 
 #ifndef AVUTIL_SFC64_H
