@@ -272,7 +272,7 @@ static int decode_extradata(AVCodecParserContext *s, AVCodecContext *avctx)
     if (data[0] == 1) {
         int num_of_arrays;  // indicates the number of arrays of NAL units of the indicated type(s)
 
-        int nalu_length_field_size; // indicates the length in bytes of the NALUnitLenght field in EVC video stream sample in the stream
+        int nalu_length_field_size; // indicates the length in bytes of the NALUnitLength field in EVC video stream sample in the stream
         // The value of this field shall be one of 0, 1, or 3 corresponding to a length encoded with 1, 2, or 4 bytes, respectively.
 
         if (bytestream2_get_bytes_left(&gb) < 18) {
@@ -289,7 +289,7 @@ static int decode_extradata(AVCodecParserContext *s, AVCodecContext *avctx)
         if( nalu_length_field_size != 1 &&
             nalu_length_field_size != 2 &&
             nalu_length_field_size != 4 ) {
-            av_log(avctx, AV_LOG_ERROR, "The length in bytes of the NALUnitLenght field in a EVC video stream has unsupported value of %d\n", nalu_length_field_size);
+            av_log(avctx, AV_LOG_ERROR, "The length in bytes of the NALUnitLength field in an EVC video stream has unsupported value of %d\n", nalu_length_field_size);
             return AVERROR_INVALIDDATA;
         }
 
