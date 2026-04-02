@@ -1914,7 +1914,7 @@ Play an AVI file directly from a TAR archive:
 subfile,,start,183241728,end,366490624,,:archive.tar
 @end example
 
-Play a MPEG-TS file from start offset till end:
+Play an MPEG-TS file from start offset till end:
 @example
 subfile,,start,32815239,end,0,,:video.ts
 @end example

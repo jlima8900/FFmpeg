@@ -289,7 +289,7 @@ To remove all AUDs, SEI and filler from an H.265 stream:
 ffmpeg -i INPUT -c:v copy -bsf:v 'filter_units=remove_types=35|38-40' OUTPUT
 @end example
 
-To remove all user data from a MPEG-2 stream, including Closed Captions:
+To remove all user data from an MPEG-2 stream, including Closed Captions:
 @example
 ffmpeg -i INPUT -c:v copy -bsf:v 'filter_units=remove_types=178' OUTPUT
 @end example
