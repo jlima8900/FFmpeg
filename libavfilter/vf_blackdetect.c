@@ -42,6 +42,7 @@ typedef struct BlackDetectContext {
     int64_t black_start;             ///< pts start time of the first black picture
     int64_t black_end;               ///< pts end time of the last black picture
     int64_t last_picref_pts;         ///< pts of the last input picture
+    int64_t last_picref_duration;    ///< duration of the last input picture
     int black_started;
 
     double       picture_black_ratio_th;
@@ -226,6 +227,7 @@ static int filter_frame(AVFilterLink *inlink, AVFrame *picref)
     }
 
     s->last_picref_pts = picref->pts;
+    s->last_picref_duration = picref->duration;
     s->nb_black_pixels = 0;
     return ff_filter_frame(inlink->dst->outputs[0], picref);
 }
@@ -237,8 +239,9 @@ static av_cold void uninit(AVFilterContext *ctx)
     av_freep(&s->counter);
 
     if (s->black_started) {
-        // FIXME: black_end should be set to last_picref_pts + last_picref_duration
         s->black_end = s->last_picref_pts;
+        if (s->last_picref_duration > 0)
+            s->black_end += s->last_picref_duration;
         check_black_end(ctx);
     }
 }
