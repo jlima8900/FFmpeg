@@ -30818,7 +30818,7 @@ The @code{allrgb} source returns frames of size 4096x4096 of all rgb colors.
 
 The @code{allyuv} source returns frames of size 4096x4096 of all yuv colors.
 
-The @code{color} source provides an uniformly colored input.
+The @code{color} source provides a uniformly colored input.
 
 The @code{colorchart} source provides a colors checker chart.
 

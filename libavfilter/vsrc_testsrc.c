@@ -299,7 +299,7 @@ static const AVFilterPad color_outputs[] = {
 
 const FFFilter ff_vsrc_color = {
     .p.name          = "color",
-    .p.description   = NULL_IF_CONFIG_SMALL("Provide an uniformly colored input."),
+    .p.description   = NULL_IF_CONFIG_SMALL("Provide a uniformly colored input."),
     .p.priv_class    = &color_class,
     .priv_size       = sizeof(TestSourceContext),
     .init            = color_init,
