@@ -1981,7 +1981,7 @@ void prefetch_motion(const VP8Context *s, const VP8Macroblock *mb,
         int my = (mb->mv.y >> 2) + y_off;
         uint8_t **src = s->framep[ref]->tf.f->data;
         int off = mx + (my + (mb_x & 3) * 4) * s->linesize + 64;
-        /* For threading, a ff_thread_await_progress here might be useful, but
+        /* For threading, an ff_thread_await_progress here might be useful, but
          * it actually slows down the decoder. Since a bad prefetch doesn't
          * generate bad decoder output, we don't run it here. */
         s->vdsp.prefetch(src[0] + off, s->linesize, 4);
