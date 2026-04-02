@@ -636,7 +636,7 @@ void ff_format_set_url(AVFormatContext *s, char *url);
  *
  * Checks protocol_whitelist/blacklist
  *
- * @returns a AVERROR code or non negative on success
+ * @returns an AVERROR code or non negative on success
  */
 int ff_format_check_set_url(AVFormatContext *s, const char *url);
 
