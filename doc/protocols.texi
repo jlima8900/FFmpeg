@@ -1257,7 +1257,7 @@ The muxer can be used to send a stream using RTSP ANNOUNCE to a server
 supporting it (currently Darwin Streaming Server and Mischa Spiegelmock's
 @uref{https://github.com/revmischa/rtsp-server, RTSP server}).
 
-The required syntax for a RTSP url is:
+The required syntax for an RTSP url is:
 @example
 rtsp://@var{hostname}[:@var{port}]/@var{path}
 @end example
@@ -1439,7 +1439,7 @@ ffplay -rtsp_transport http rtsp://server/video.mp4
 @end example
 
 @item
-Send a stream in realtime to a RTSP server, for others to watch:
+Send a stream in realtime to an RTSP server, for others to watch:
 @example
 ffmpeg -re -i @var{input} -f rtsp -muxdelay 0.1 rtsp://server/live.sdp
 @end example

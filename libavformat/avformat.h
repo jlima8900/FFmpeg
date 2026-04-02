@@ -2376,7 +2376,7 @@ int av_read_pause(AVFormatContext *s);
  */
 enum AVFormatCommandID {
     /**
-     * Send a RTSP `SET_PARAMETER` request to the server
+     * Send an RTSP `SET_PARAMETER` request to the server
      *
      * Sends an SET_PARAMETER RTSP command to the server,
      * with a data payload of type ::AVRTSPCommandRequest,

@@ -1194,7 +1194,7 @@ void ff_rtsp_parse_line(AVFormatContext *s,
     }
 }
 
-/* skip a RTP/TCP interleaved packet */
+/* skip an RTP/TCP interleaved packet */
 int ff_rtsp_skip_packet(AVFormatContext *s)
 {
     RTSPState *rt = s->priv_data;

@@ -283,7 +283,7 @@ typedef struct RTSPState {
     /** authentication state */
     HTTPAuthState auth_state;
 
-    /** The last reply of the server to a RTSP command */
+    /** The last reply of the server to an RTSP command */
     char last_reply[2048]; /* XXX: allocate ? */
 
     /**
@@ -607,7 +607,7 @@ int ff_rtsp_send_cmd(AVFormatContext *s, const char *method,
                      RTSPMessageHeader *reply, unsigned char **content_ptr);
 
 /**
- * Read a RTSP message from the server, or prepare to read data
+ * Read an RTSP message from the server, or prepare to read data
  * packets if we're reading data interleaved over the TCP/RTSP
  * connection as well.
  *
@@ -656,7 +656,7 @@ int ff_rtsp_read_reply_async_stored(AVFormatContext *s, RTSPMessageHeader **repl
 
 
 /**
- * Skip a RTP/TCP interleaved packet.
+ * Skip an RTP/TCP interleaved packet.
  *
  * @return 0 on success, < 0 on failure.
  */
@@ -725,7 +725,7 @@ int ff_rtsp_tcp_write_packet(AVFormatContext *s, RTSPStream *rtsp_st);
 
 /**
  * Receive one packet from the RTSPStreams set up in the AVFormatContext
- * (which should contain a RTSPState struct as priv_data).
+ * (which should contain an RTSPState struct as priv_data).
  */
 int ff_rtsp_fetch_packet(AVFormatContext *s, AVPacket *pkt);
 
