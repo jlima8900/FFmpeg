@@ -74,7 +74,7 @@ typedef struct AVDCT {
 } AVDCT;
 
 /**
- * Allocates a AVDCT context.
+ * Allocates an AVDCT context.
  * This needs to be initialized with avcodec_dct_init() after optionally
  * configuring it with AVOptions.
  *
